@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:background="@drawable/fondo"
+    android:id="@+id/main_activity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight=".48"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        >
+        <ToggleButton
+            android:layout_width="@dimen/size_button_menu"
+            android:layout_height="@dimen/space_menu_height"
+            android:textOff="Inicio"
+            android:textOn="Inicio"
+            android:textAllCaps="false"
+            android:id="@+id/btn_1"
+            android:fontFamily="@font/s_hand_family"
+            android:background="@drawable/round_button_menu"
+            android:translationZ="7dp"
+            android:textColor="@color/white"
+            />
+        <ToggleButton
+            android:layout_width="@dimen/size_button_menu"
+            android:layout_height="@dimen/space_menu_height"
+            android:textOff="Masa"
+            android:textOn="Masa"
+            android:id="@+id/btn_2"
+            android:textAllCaps="false"
+            android:fontFamily="@font/s_hand_family"
+            android:background="@drawable/round_button_menu"
+            android:layout_marginLeft="@dimen/space_menu"
+            android:translationZ="6dp"
+            android:textColor="@color/white"
+
+            />
+        <ToggleButton
+            android:layout_width="@dimen/size_button_menu"
+            android:layout_height="@dimen/space_menu_height"
+            android:textOff="Salsa"
+            android:textOn="Salsa"
+            android:id="@+id/btn_3"
+            android:textAllCaps="false"
+            android:fontFamily="@font/s_hand_family"
+            android:background="@drawable/round_button_menu"
+            android:translationZ="5dp"
+            android:layout_marginLeft="@dimen/space_menu"
+            android:textColor="@color/white"
+            />
+
+        <ToggleButton
+            android:layout_width="@dimen/size_button_menu"
+            android:layout_height="@dimen/space_menu_height"
+            android:textOff="Queso"
+            android:textOn="Queso"
+            android:id="@+id/btn_4"
+            android:textAllCaps="false"
+            android:fontFamily="@font/s_hand_family"
+            android:background="@drawable/round_button_menu"
+            android:translationZ="4dp"
+            android:layout_marginLeft="@dimen/space_menu"
+            android:textColor="@color/white"
+            />
+        <ToggleButton
+            android:layout_width="@dimen/size_button_menu"
+            android:layout_height="@dimen/space_menu_height"
+            android:textOff="Topping"
+            android:textOn="Topping"
+            android:id="@+id/btn_5"
+            android:textAllCaps="false"
+            android:fontFamily="@font/s_hand_family"
+            android:background="@drawable/round_button_menu"
+            android:translationZ="3dp"
+            android:layout_marginLeft="@dimen/space_menu"
+            android:textColor="@color/white"
+            />
+
+        <ToggleButton
+            android:layout_width="@dimen/size_button_menu"
+            android:layout_height="@dimen/space_menu_height"
+            android:textOff="Bebidas"
+            android:textOn="Bebidas"
+            android:id="@+id/btn_6"
+            android:textAllCaps="false"
+            android:fontFamily="@font/s_hand_family"
+            android:background="@drawable/round_button_menu"
+            android:translationZ="2dp"
+            android:layout_marginLeft="@dimen/space_menu"
+            android:textColor="@color/white"
+            />
+
+        <ToggleButton
+            android:layout_width="@dimen/size_button_menu"
+            android:layout_height="@dimen/space_menu_height"
+            android:textOff="Resumen"
+            android:textOn="Resumen"
+            android:textAllCaps="false"
+            android:id="@+id/btn_menu_review"
+            android:fontFamily="@font/s_hand_family"
+            android:background="@drawable/round_button_menu"
+            android:layout_marginLeft="@dimen/space_menu"
+            android:translationZ="1dp"
+            android:textColor="@color/white"
+            />
+
+    </LinearLayout>
+
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight=".13"
+        android:id="@+id/content"
+        >
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/content_pizza"
+            android:layout_width="45dp"
+            android:layout_height="250dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginBottom="80dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardPreventCornerOverlap="false"
+            app:cardElevation="0dp"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/barra_info_nutricional"/>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/real_content"
+            android:layout_width="350dp"
+            android:layout_height="250dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginBottom="80dp"
+            android:visibility="gone"
+            android:weightSum="2.0"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardPreventCornerOverlap="false"
+            app:cardElevation="0dp"
+            >
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/barra_info_nutricional"/>
+
+            <LinearLayout
+                android:layout_marginLeft="40dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/blue_menu"
+                android:orientation="vertical"
+                android:gravity="center"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Informacion Nutricional"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="25dp"/>
+                <TextView
+                    android:fontFamily="sans-serif"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Calorias"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="18dp"
+                    />
+                <TextView
+                    android:id="@+id/tv_calorias"
+                    android:fontFamily="sans-serif"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="123"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="14dp"
+                    />
+                <LinearLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:fontFamily="sans-serif"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gr de Grasa: "
+                        android:textAlignment="center"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+
+                        />
+                    <TextView
+                        android:id="@+id/tv_grasa"
+                        android:fontFamily="sans-serif"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="123 g"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:fontFamily="sans-serif"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gr de Proteina: "
+                        android:textAlignment="center"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+
+                        />
+                    <TextView
+                        android:id="@+id/tv_proteinas"
+                        android:fontFamily="sans-serif"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="123 g"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:fontFamily="sans-serif"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gr de Carbohidratos: "
+                        android:textAlignment="center"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_carbohidratos"
+                        android:fontFamily="sans-serif"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="123g"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+    </android.support.design.widget.CoordinatorLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:orientation="horizontal">
+        <android.support.v7.widget.CardView
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            app:cardBackgroundColor="@color/blue_menu"
+            app:cardCornerRadius="10dp"
+            android:layout_marginRight="50dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="helvetica"
+                    android:text="SubTotal: "
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="28dp" />
+                <TextView
+                    android:id="@+id/tv_subtotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="helvetica"
+                    android:text="$0"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="28dp"
+                    />
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            app:cardBackgroundColor="@color/grey"
+            app:cardCornerRadius="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="helvetica"
+                    android:text="Total: "
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="28dp" />
+                <TextView
+                    android:id="@+id/tv_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="helvetica"
+                    android:text="$0"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="28dp"
+                    />
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+
+</LinearLayout>

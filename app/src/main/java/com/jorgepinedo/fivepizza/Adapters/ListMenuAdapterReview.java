@@ -97,7 +97,7 @@ public class ListMenuAdapterReview extends RecyclerView.Adapter<ListMenuAdapterR
         });
 
 
-        if(row.getStatus_id() == 2){
+        if(row.getStatus_id() == 3){
             holder.btn_minus.setVisibility(View.INVISIBLE);
             holder.btn_plus.setVisibility(View.INVISIBLE);
             holder.card_complete.setBackgroundColor(activity.getResources().getColor(R.color.grey));

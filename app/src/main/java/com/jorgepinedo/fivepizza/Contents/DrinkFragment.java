@@ -47,7 +47,7 @@ public class DrinkFragment extends Fragment implements ListMenuDrinkAdapter.even
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_drink, container, false);
         app_db = Utils.newInstanceDB(getActivity());
-        list = app_db.productsDAO().getAllProductsCategory(7);
+        list = app_db.productsDAO().getAllProductsCategory(new int[]{7});
         recycler_products = view.findViewById(R.id.recycler_products);
         btn_next = view.findViewById(R.id.btn_next);
         image_table = view.findViewById(R.id.image_table);

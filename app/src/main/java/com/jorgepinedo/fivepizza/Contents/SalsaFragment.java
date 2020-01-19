@@ -53,14 +53,13 @@ public class SalsaFragment extends Fragment implements ListMenuAdapter.OnDragLis
 
 
         app_db = Utils.newInstanceDB(getActivity());
-        list = app_db.productsDAO().getAllProductsCategory(3);
+        list = app_db.productsDAO().getAllProductsCategory(new int[]{3});
 
         recycler_products = view.findViewById(R.id.recycler_products);
 
         image_table = view.findViewById(R.id.image_table);
         image_massa = view.findViewById(R.id.image_massa);
         image_salsa = view.findViewById(R.id.image_salsa);
-
 
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -84,7 +83,6 @@ public class SalsaFragment extends Fragment implements ListMenuAdapter.OnDragLis
             id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/" + salsa, null, null);
             image_salsa.setImageResource(id);
         }
-
 
 
         return view;
@@ -184,8 +182,14 @@ public class SalsaFragment extends Fragment implements ListMenuAdapter.OnDragLis
                 ((MainActivity)getActivity()).enableBtnsFour();
                 Toast.makeText(getActivity(),"Ya tienes la "+current_product.getTitle()+" seccionada!",Toast.LENGTH_SHORT).show();
             }else {
-                Products old_product = app_db.productsDAO().getProductById(row.getProduct_id());
-                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+                //Products old_product = app_db.productsDAO().getProductById(row.getProduct_id());
+
+                ((MainActivity) getActivity()).chageFragment(fragment);
+                ((MainActivity) getActivity()).enableBtnsFour();
+                Utils.setItem(getActivity(), "salsa", current_product.getUrl());
+                app_db.ordersDetailDAO().updateChangeProduct(row.getId(), current_product.getId());
+
+               /* AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
                 alert.setTitle("Cambio de producto");
                 alert.setMessage("Seleccionado: (" + current_product.getTitle() + ")\nA Reemplazar : (" + old_product.getTitle() + ")\n¿Estas seguro de cambiarlo?");
                 alert.setPositiveButton("Si", new DialogInterface.OnClickListener() {
@@ -206,7 +210,7 @@ public class SalsaFragment extends Fragment implements ListMenuAdapter.OnDragLis
                     }
                 });
 
-                alert.create().show();
+                alert.create().show();*/
             }
         }else{
             ((MainActivity)getActivity()).chageFragment(fragment);

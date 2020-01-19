@@ -17,8 +17,8 @@ public interface ProductsDAO {
     @Query("SELECT * from products")
     List<Products> getAllProducts();
 
-    @Query("SELECT * from products where category_id = :category_id")
-    List<Products> getAllProductsCategory(int category_id);
+    @Query("SELECT * from products where category_id IN(:category_id)")
+    List<Products> getAllProductsCategory(int[] category_id);
 
     @Query("SELECT * from products WHERE id= :id")
     Products getProductById(int id);

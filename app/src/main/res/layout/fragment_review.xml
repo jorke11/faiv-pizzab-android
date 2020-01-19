@@ -61,7 +61,7 @@
                     android:layout_width="150dp"
                     android:layout_height="match_parent"
                     android:text="Ordenar ahora"
-                    android:background="@drawable/round_button_blue"
+                    android:background="@drawable/round_button_green"
                     android:textColor="@color/white"
                     android:fontFamily="helvetica"
                     android:textSize="16dp"
@@ -96,29 +96,7 @@
                 android:id="@+id/recycler_reviewed">
 
             </android.support.v7.widget.RecyclerView>
-            <LinearLayout
-                android:layout_weight=".75"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_gravity="center">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:textSize="20dp"
-                    android:text="Total Resumen: " />
-                <TextView
-                    android:id="@+id/total_review"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:textSize="20dp"
-                    android:text="$100.000"
-                    android:textStyle="bold"/>
-            </LinearLayout>
+
 
         </LinearLayout>
 

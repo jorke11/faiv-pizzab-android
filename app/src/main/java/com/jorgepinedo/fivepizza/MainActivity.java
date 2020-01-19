@@ -31,11 +31,12 @@ import com.jorgepinedo.fivepizza.Contents.SalsaFragment;
 import com.jorgepinedo.fivepizza.Contents.MasaFragment;
 import com.jorgepinedo.fivepizza.Database.App;
 import com.jorgepinedo.fivepizza.Models.Orders;
+import com.jorgepinedo.fivepizza.Models.OrdersDetail;
 import com.jorgepinedo.fivepizza.Tools.Utils;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    ToggleButton btn_1,btn_2,btn_3,btn_4,btn_5,btn_6,btn_menu_review;
+    ToggleButton btn_1,btn_masa,btn_salsa,btn_cheese,btn_toppings,btn_6,btn_menu_review;
     TextView tv_total,tv_subtotal,tv_calorias,tv_grasa,tv_proteinas,tv_carbohidratos;
     App app_db;
     CardView content_pizza,real_content;
@@ -93,18 +94,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         btn_1 = findViewById(R.id.btn_1);
-        btn_2 = findViewById(R.id.btn_2);
-        btn_3 = findViewById(R.id.btn_3);
-        btn_4 = findViewById(R.id.btn_4);
-        btn_5 = findViewById(R.id.btn_5);
+        btn_masa= findViewById(R.id.btn_massa);
+        btn_salsa = findViewById(R.id.btn_salsa);
+        btn_cheese = findViewById(R.id.btn_cheese);
+        btn_toppings = findViewById(R.id.btn_toppings);
         btn_6 = findViewById(R.id.btn_6);
         btn_menu_review = findViewById(R.id.btn_menu_review);
 
         btn_1.setOnClickListener(this);
-        btn_2.setOnClickListener(this);
-        btn_3.setOnClickListener(this);
-        btn_4.setOnClickListener(this);
-        btn_5.setOnClickListener(this);
+        btn_masa.setOnClickListener(this);
+        btn_salsa.setOnClickListener(this);
+        btn_cheese.setOnClickListener(this);
+        btn_toppings.setOnClickListener(this);
         btn_6.setOnClickListener(this);
         btn_menu_review.setOnClickListener(this);
 
@@ -131,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getSupportFragmentManager().beginTransaction().replace(R.id.content, fragment).commit();
 
         loadTotal();
-        //initButton();
+        initButton();
     }
 
 
@@ -174,10 +175,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void initButton(){
-        btn_2.setEnabled(false);
-        btn_3.setEnabled(false);
-        btn_4.setEnabled(false);
-        btn_5.setEnabled(false);
+        btn_masa.setEnabled(false);
+        btn_salsa.setEnabled(false);
+        btn_cheese.setEnabled(false);
+        btn_toppings.setEnabled(false);
     }
 
     public void newRequest(){
@@ -213,32 +214,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
 
         Fragment fragment = null;
+        boolean change = false;
+
+        OrdersDetail ordersDetail=null;
 
         switch (v.getId()){
             case R.id.btn_1:
                 enableBtnsTwo();
                 fragment = new OneFragment();
                 break;
-            case R.id.btn_2:
+            case R.id.btn_massa:
                 enableBtnsTwo();
                 fragment = new MasaFragment();
                 break;
-            case R.id.btn_3:
+            case R.id.btn_salsa:
                 enableBtnsThird();
                 fragment = new SalsaFragment();
                 break;
-            case R.id.btn_4:
+            case R.id.btn_cheese:
+
+                //ordersDetail =  app_db.ordersDetailDAO().getOrdersByCategoryId(2);
+
                 enableBtnsFour();
                 fragment = new QuesoFragment();
-                break;
-            case R.id.btn_5:
-                enableBtnsFive();
 
+                /*if(ordersDetail!=null){
+                    enableBtnsFour();
+                    fragment = new QuesoFragment();
+                    change = true;
+                }*/
+
+                break;
+            case R.id.btn_toppings:
+                enableBtnsFive();
                 fragment = new ToppingFragment();
                 break;
             case R.id.btn_6:
                enableBtnsSix();
                 fragment = new DrinkFragment();
+                change = true;
                 break;
             case R.id.btn_menu_review:
                enableBtnReview();
@@ -247,15 +261,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         chageFragment(fragment);
-
     }
 
     public void loadTotal(){
 
-        String formattedNumber = Utils.numberFormat(app_db.ordersDetailDAO().getTotal(1));
+        String formattedNumber = Utils.numberFormat(app_db.ordersDetailDAO().getTotal(new int[]{1}));
         tv_subtotal.setText(""+formattedNumber);
 
-        String totalformattedNumber = Utils.numberFormat(app_db.ordersDetailDAO().getTotal(2));
+        String totalformattedNumber = Utils.numberFormat(app_db.ordersDetailDAO().getTotal(new int[]{1,2,3}));
         tv_total.setText(""+totalformattedNumber );
 
     }
@@ -267,67 +280,76 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void enableBtnsOne(){
         btn_1.setChecked(true);
-        btn_2.setChecked(false);
-        btn_3.setChecked(false);
-        btn_4.setChecked(false);
-        btn_5.setChecked(false);
+        btn_masa.setChecked(false);
+        btn_salsa.setChecked(false);
+        btn_cheese.setChecked(false);
+        btn_toppings.setChecked(false);
         btn_6.setChecked(false);
         btn_menu_review.setChecked(false);
     }
 
+    //Masas
     public void enableBtnsTwo(){
-        btn_2.setChecked(true);
-        btn_3.setChecked(false);
-        btn_4.setChecked(false);
-        btn_5.setChecked(false);
+        btn_masa.setChecked(true);
+        btn_salsa.setChecked(false);
+        btn_cheese.setChecked(false);
+        btn_toppings.setChecked(false);
         btn_6.setChecked(false);
         btn_menu_review.setChecked(false);
     }
+
+    //Sauce
     public void enableBtnsThird(){
         btn_1.setChecked(true);
-        btn_2.setChecked(true);
-        btn_3.setChecked(true);
-        btn_4.setChecked(false);
-        btn_5.setChecked(false);
+        btn_masa.setChecked(true);
+        btn_masa.setEnabled(true);
+        btn_salsa.setChecked(true);
+        btn_salsa.setEnabled(true);
+        btn_cheese.setChecked(false);
+        btn_toppings.setChecked(false);
         btn_6.setChecked(false);
         btn_menu_review.setChecked(false);
     }
 
+    //Cheese
     public void enableBtnsFour(){
         btn_1.setChecked(true);
-        btn_2.setChecked(true);
-        btn_3.setChecked(true);
-        btn_4.setChecked(true);
-        btn_5.setChecked(false);
+        btn_masa.setChecked(true);
+        btn_salsa.setChecked(true);
+        btn_cheese.setEnabled(true);
+        btn_cheese.setChecked(true);
+        btn_toppings.setChecked(false);
+        btn_toppings.setEnabled(true);
         btn_6.setChecked(false);
         btn_menu_review.setChecked(false);
     }
 
+    //Toppigns
     public void enableBtnsFive(){
         btn_1.setChecked(true);
-        btn_2.setChecked(true);
-        btn_3.setChecked(true);
-        btn_4.setChecked(true);
-        btn_5.setChecked(true);
+        btn_masa.setChecked(true);
+        btn_salsa.setChecked(true);
+        btn_cheese.setChecked(true);
+        btn_toppings.setChecked(true);
         btn_6.setChecked(false);
         btn_menu_review.setChecked(false);
     }
 
     public void enableBtnsSix(){
         btn_1.setChecked(true);
-        btn_2.setChecked(true);
-        btn_3.setChecked(true);
-        btn_4.setChecked(true);
-        btn_5.setChecked(true);
+        btn_masa.setChecked(true);
+        btn_salsa.setChecked(true);
+        btn_cheese.setChecked(true);
+        btn_toppings.setChecked(true);
         btn_6.setChecked(true);
         btn_menu_review.setChecked(false);
     }
 
     public void enableBtnReview(){
-        btn_2.setChecked(false);
-        btn_3.setChecked(false);
-        btn_4.setChecked(false);
-        btn_5.setChecked(false);
+        btn_masa.setChecked(false);
+        btn_salsa.setChecked(false);
+        btn_cheese.setChecked(false);
+        btn_toppings.setChecked(false);
         btn_6.setChecked(false);
         btn_menu_review.setChecked(true);
     }

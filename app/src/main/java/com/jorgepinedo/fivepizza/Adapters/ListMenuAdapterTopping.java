@@ -58,8 +58,6 @@ public class ListMenuAdapterTopping extends RecyclerView.Adapter<ListMenuAdapter
         final Products row = filterList.get(i);
 
         //String title = (row.getTitle().length()>13)?row.getTitle().substring(0,13)+"..":row.getTitle();
-
-
         String price = Utils.numberFormat(row.getPrice());
 
         //holder.title.setText(title);
@@ -89,7 +87,7 @@ public class ListMenuAdapterTopping extends RecyclerView.Adapter<ListMenuAdapter
                 if(det == null){
                     Orders orders = app_db.ordersDAO().getOrderCurrent();
 
-                    total = app_db.ordersDetailDAO().categoryExists(4,5,6);
+                    total = app_db.ordersDetailDAO().categoryExists(new int[]{4,5,6});
 
                     if(total == 0){
                         Log.d("JORKE","total "+total);
@@ -111,7 +109,7 @@ public class ListMenuAdapterTopping extends RecyclerView.Adapter<ListMenuAdapter
 
                 }else{
                     app_db.ordersDetailDAO().deleteById(det.getId());
-                    total = app_db.ordersDetailDAO().categoryExists(4,5,6);
+                    total = app_db.ordersDetailDAO().categoryExists(new int[]{4,5,6});
                     Log.d("JORKE---",total+"");
                     id=0;
                 }

@@ -47,7 +47,7 @@ public class PaymentActivity extends AppCompatActivity  implements ListMenuAdapt
         tv_service = findViewById(R.id.tv_service);
         tv_total = findViewById(R.id.tv_total);
 
-        total = app_db.ordersDetailDAO().getTotal(2);
+        total = app_db.ordersDetailDAO().getTotal(new int[]{3});
 
         String total_formated=Utils.numberFormat(Math.round(total));
 
@@ -55,9 +55,11 @@ public class PaymentActivity extends AppCompatActivity  implements ListMenuAdapt
 
         List<Review> listReviewMain,listReviewTotal,listReviewDrink;
 
-        listReviewMain = app_db.ordersDetailDAO().getReviewNotIn(7,2);
+        int[] state={3};
 
-        listReviewDrink = app_db.ordersDetailDAO().getReviewIn(7,2);
+        listReviewMain = app_db.ordersDetailDAO().getReviewNotIn(7,state);
+
+        listReviewDrink = app_db.ordersDetailDAO().getReviewIn(7,state);
 
         listReviewTotal = new ArrayList<>();
 
@@ -131,11 +133,9 @@ public class PaymentActivity extends AppCompatActivity  implements ListMenuAdapt
     }
 
     private void finishOrder(final Orders orders){
-        app_db.ordersDetailDAO().updateFinishOrder(orders.getId());
         final AlertDialog dialog;
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(PaymentActivity.this);
         View mView=getLayoutInflater().inflate(R.layout.dialog_close_waiter,null);
-
 
         Button accept = mView.findViewById(R.id.btn_accept);
 
@@ -157,8 +157,12 @@ public class PaymentActivity extends AppCompatActivity  implements ListMenuAdapt
                 orders.setStatus_id(2);
                 app_db.ordersDAO().update(orders);
                 app_db.ordersDetailDAO().updateFinishOrder(orders.getId());
-                cleanImage();
-                Intent i = new Intent(PaymentActivity.this,MainActivity.class);
+                                cleanImage();
+                Utils.setItem(PaymentActivity.this,"status","finalizado");
+                Intent i = new Intent(PaymentActivity.this,LockActivity.class);
+                Bundle b = new Bundle();
+                b.putString("from","payment");
+                i.putExtras(b);
                 startActivity(i);
             }
         });

@@ -24,7 +24,7 @@ public class Utils {
 
     public static final String MY_PREFS_NAME="faivs";
     //public static final String IP = "http://192.168.1.2";
-    public static final String IP = "http://192.168.1.4";
+    public static final String IP = "http://192.168.1.6";
     //public static final String IP = "http://192.168.1.3:8000";
     public static SharedPreferences prefs;
     public static SharedPreferences.Editor editor;

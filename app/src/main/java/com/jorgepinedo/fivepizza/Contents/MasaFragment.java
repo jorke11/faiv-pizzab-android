@@ -72,7 +72,7 @@ public class MasaFragment extends Fragment implements ListMenuAdapter.OnDragList
 
         View view = inflater.inflate(R.layout.fragment_masa, container, false);
 
-        list = app_db.productsDAO().getAllProductsCategory(1);
+        list = app_db.productsDAO().getAllProductsCategory(new int[]{1});
 
         recycler_products = view.findViewById(R.id.recycler_products);
         image_table = view.findViewById(R.id.image_table);
@@ -175,12 +175,17 @@ public class MasaFragment extends Fragment implements ListMenuAdapter.OnDragList
 
         if(row != null){
             if(row.getProduct_id() == current_product.getId()){
-                Toast.makeText(getActivity(),"Ya tienes la "+current_product.getTitle()+" seccionada!",Toast.LENGTH_SHORT).show();
                 ((MainActivity)getActivity()).chageFragment(fragment);
                 ((MainActivity)getActivity()).enableBtnsThird();
             }else{
                 Products old_product = app_db.productsDAO().getProductById(row.getProduct_id());
-                AlertDialog.Builder alert= new AlertDialog.Builder(getActivity());
+
+                ((MainActivity)getActivity()).chageFragment(fragment);
+                ((MainActivity)getActivity()).enableBtnsThird();
+                Utils.setItem(getActivity(),"masa",current_product.getUrl());
+                app_db.ordersDetailDAO().updateChangeProduct(row.getId(),current_product.getId());
+
+                /*AlertDialog.Builder alert= new AlertDialog.Builder(getActivity());
                 alert.setTitle("Cambio de producto");
                 alert.setMessage("Seleccionado: ("+current_product.getTitle()+")\nA Reemplazar : ("+old_product.getTitle()+")\n¿Estas seguro de cambiarlo?");
                 alert.setPositiveButton("Si", new DialogInterface.OnClickListener() {
@@ -201,12 +206,11 @@ public class MasaFragment extends Fragment implements ListMenuAdapter.OnDragList
                     }
                 });
 
-                alert.create().show();
+                alert.create().show();*/
             }
         }else{
 
             Orders orders=app_db.ordersDAO().getOrderCurrent();
-
             ((MainActivity)getActivity()).chageFragment(fragment);
             ((MainActivity)getActivity()).enableBtnsThird();
             app_db.ordersDetailDAO().insertAll(new OrdersDetail(orders.getId(),current_product.getId(),0));

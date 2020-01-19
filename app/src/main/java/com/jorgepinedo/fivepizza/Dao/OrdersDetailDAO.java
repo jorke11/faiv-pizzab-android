@@ -19,8 +19,8 @@ public interface OrdersDetailDAO {
     @Query("SELECT * from OrdersDetail")
     List<OrdersDetail> getAllOrdersDetail();
 
-    @Query("SELECT * from OrdersDetail where status_id=:status_id")
-    List<OrdersDetail> getAllOrdersDetail(int status_id);
+    @Query("SELECT * from OrdersDetail where status_id IN(:status_id)")
+    List<OrdersDetail> getAllOrdersDetail(int[] status_id);
 
     @Query("SELECT * from OrdersDetail WHERE id= :id")
     OrdersDetail getOrderDetailById(int id);
@@ -40,14 +40,22 @@ public interface OrdersDetailDAO {
     @Query("select o.* \n" +
             "from OrdersDetail o\n" +
             "join products p ON p.id=o.product_id " +
-            "WHERE p.category_id IN(:categories)")
-    List<OrdersDetail> getOrdersByCategories(String categories);
+            "WHERE p.category_id IN(:categories) and o.status_id IN (1,2) and o.parent_id=:parent_id " +
+            "ORDER BY p.category_id ")
+    List<OrdersDetail> getOrdersByCategories(int[] categories,int parent_id);
+
+    @Query("select o.* \n" +
+            "from OrdersDetail o\n" +
+            "join products p ON p.id=o.product_id " +
+            "WHERE p.category_id IN(:categories) and o.status_id IN (:status) " +
+            "ORDER BY p.category_id ")
+    List<OrdersDetail> getOrdersByCategories(int[] categories,int[] status);
 
     @Query("select o.id,o.status_id,p.title,p.price,o.quantity,p.pos_id,(p.price * o.quantity) as subtotal\n" +
             "from OrdersDetail o \n" +
             "JOIN products p ON p.id= o.product_id \n" +
-            "WHERE p.category_id IN(:categories) and o.status_id=:status_id")
-    List<Review> getReviewIn(int categories,int status_id);
+            "WHERE p.category_id IN(:categories) and o.status_id IN(:status_id)")
+    List<Review> getReviewIn(int categories,int[] status_id);
 
     @Query("select o.id,o.status_id,p.title,p.price,o.quantity,p.pos_id,(p.price * o.quantity) as subtotal\n" +
             "from OrdersDetail o \n" +
@@ -58,24 +66,23 @@ public interface OrdersDetailDAO {
     @Query("select o.id,o.status_id,p.title,p.price,o.quantity,p.pos_id,(p.price * o.quantity) as subtotal\n" +
             "from OrdersDetail o \n" +
             "JOIN products p ON p.id= o.product_id \n" +
-            "WHERE p.category_id NOT IN(:categories) and o.parent_id=0 and o.status_id =:status_id")
-    List<Review> getReviewNotIn(int categories,int status_id);
+            "WHERE p.category_id NOT IN(:categories) and o.parent_id=0 and o.status_id IN(:status_id)")
+    List<Review> getReviewNotIn(int categories,int[] status_id);
 
     @Query("SELECT count(*) from OrdersDetail WHERE product_id= :product_id")
     int productExists(int product_id);
 
-
     @Query("select count(*) as total \n" +
             "from OrdersDetail o\n" +
             "join products p ON p.id=o.product_id " +
-            "WHERE (p.category_id=:cat1 or p.category_id=:cate2 or p.category_id=:cate3) and o.status_id=1")
-    int categoryExists(int cat1,int cate2,int cate3);
+            "WHERE p.category_id IN (:cat)and o.status_id=1")
+    int categoryExists(int[] cat);
 
     @Query("select sum(p.price * d.quantity) as total \n" +
             "from OrdersDetail d\n" +
             "join products p ON p.id=d.product_id " +
-            "JOIN Orders o On o.id=d.order_id and o.status_id=1 and d.status_id=:status_id")
-    int getTotal(int status_id);
+            "JOIN Orders o On o.id=d.order_id and o.status_id=1 and d.status_id IN(:status_id)")
+    int getTotal(int[] status_id);
 
     @Query("select sum(p.grams) gram\n" +
             "from OrdersDetail o\n" +
@@ -95,7 +102,13 @@ public interface OrdersDetailDAO {
     void updateNewRequest();
 
     @Query("UPDATE OrdersDetail set status_id=3 where order_id=:order_id")
+    void printedOrder(int order_id);
+
+    @Query("UPDATE OrdersDetail set status_id=4 where order_id=:order_id")
     void updateFinishOrder(int order_id);
+
+    @Query("UPDATE OrdersDetail set status_id=:status where order_id=:order_id")
+    void changeStatus(int order_id,int status);
 
     @Insert
     void insertAll(OrdersDetail... ordersDetails);
@@ -108,6 +121,10 @@ public interface OrdersDetailDAO {
 
     @Query("DELETE FROM OrdersDetail where id=:id")
     void deleteById(int id);
+
+    @Query("DELETE FROM OrdersDetail where product_id IN(SELECT id from products where category_id=:category_id)")
+    void deleteByCategory(int category_id);
+
 
     @Delete
     void delete(OrdersDetail... ordersDetail);

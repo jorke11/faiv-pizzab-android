@@ -49,9 +49,9 @@ public class ToppingFragment extends Fragment  implements ListMenuAdapterTopping
         View view =inflater.inflate(R.layout.fragment_topping, container, false);
 
         app_db = Utils.newInstanceDB(getActivity());
-        favorite = app_db.productsDAO().getAllProductsCategory(4);
-        protein = app_db.productsDAO().getAllProductsCategory(5);
-        vegetable = app_db.productsDAO().getAllProductsCategory(6);
+        favorite = app_db.productsDAO().getAllProductsCategory(new int[]{4});
+        protein = app_db.productsDAO().getAllProductsCategory(new int[]{5});
+        vegetable = app_db.productsDAO().getAllProductsCategory(new int[]{6});
 
         recycler_favorite = view.findViewById(R.id.recycler_favorite);
         recycler_protein = view.findViewById(R.id.recycler_protein);
@@ -96,6 +96,7 @@ public class ToppingFragment extends Fragment  implements ListMenuAdapterTopping
         String queso= Utils.getItem(getActivity(),"queso");
         topping_1 = Utils.getItem(getActivity(),"topping_1");
         topping_2 = Utils.getItem(getActivity(),"topping_2");
+
 
 
         int id;
@@ -247,8 +248,6 @@ public class ToppingFragment extends Fragment  implements ListMenuAdapterTopping
             }
 
         }else if(total==2){
-
-
 
             final Fragment fragment =new DrinkFragment();
 

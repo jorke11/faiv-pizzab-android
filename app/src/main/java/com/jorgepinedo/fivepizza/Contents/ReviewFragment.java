@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.LoginFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +37,7 @@ import com.jorgepinedo.fivepizza.Models.Review;
 import com.jorgepinedo.fivepizza.R;
 import com.jorgepinedo.fivepizza.Tools.Utils;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -56,7 +58,6 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
 
     Button payment,other_pizza;
     StringRequest stringRequest;
-    TextView total_review;
 
     private static final String IP = Utils.IP;
 
@@ -74,16 +75,20 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
 
         View view = inflater.inflate(R.layout.fragment_review, container, false);
 
-        listReviewMain = app_db.ordersDetailDAO().getReviewNotIn(7,1);
-        listReviewDrink = app_db.ordersDetailDAO().getReviewIn(7,1);
+        int[] status={1,2};
+
+        listReviewMain = app_db.ordersDetailDAO().getReviewNotIn(7,status);
+        listReviewDrink = app_db.ordersDetailDAO().getReviewIn(7,status);
 
         listReviewTotal = new ArrayList<>();
 
         listReviewTotal.addAll(Utils.joinAditionals(listReviewMain,app_db));
         listReviewTotal.addAll(listReviewDrink);
 
-        listedReviewMain = app_db.ordersDetailDAO().getReviewNotIn(7,2);
-        listedReviewDrink = app_db.ordersDetailDAO().getReviewIn(7,2);
+        int[] status_fin={3};
+
+        listedReviewMain = app_db.ordersDetailDAO().getReviewNotIn(7,status_fin);
+        listedReviewDrink = app_db.ordersDetailDAO().getReviewIn(7,status_fin);
 
         listedReviewTotal = new ArrayList<>();
 
@@ -93,11 +98,7 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
 
         recycler_review = view.findViewById(R.id.recycler_review);
         recycler_reviewed = view.findViewById(R.id.recycler_reviewed);
-        total_review = view.findViewById(R.id.total_review);
 
-        String total_review_calc = Utils.numberFormat(app_db.ordersDetailDAO().getTotal(2));
-
-        total_review.setText("$"+total_review_calc);
 
         payment = view.findViewById(R.id.payment);
         other_pizza = view.findViewById(R.id.other_pizza);
@@ -110,7 +111,7 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
         recycler_review.setAdapter(listMenuAdapter);
 
 
-        LinearLayoutManager linearLayoutManager2=new LinearLayoutManager(getActivity());
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getActivity());
         linearLayoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
         recycler_reviewed.setLayoutManager(linearLayoutManager2);
 
@@ -137,6 +138,8 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
             }
         });
 
+
+
         ((MainActivity)getActivity()).hideInformation(true);
 
         return view;
@@ -147,63 +150,61 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
         String url=IP+"/api/orders";
         Log.d("JORKE",url);
 
-        //startActivity(new Intent(getActivity(), FinishActivity.class));
+        final Orders orders = app_db.ordersDAO().getOrderCurrent();
 
-        stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
 
-                try {
+        if(Utils.getItem(getActivity(),"PRINTER").equals("false")){
+            startActivity(new Intent(getActivity(), FinishActivity.class));
+        }else{
+            stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
 
-                    Orders orders = app_db.ordersDAO().getOrderCurrent();
-
-                    JSONObject obj = new JSONObject(response);
-
-                    Log.d("JORKE-1",response);
+                    try {
+                        JSONObject obj = new JSONObject(response);
+                        Log.d("JORKE-1",response);
                     /*Toast.makeText(getActivity(),"Solicitud creada #"+obj.getString("OrderID"),Toast.LENGTH_LONG).show();*/
-
-
-                    startActivity(new Intent(getActivity(), FinishActivity.class));
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("JORKE",error.getMessage()+"");
-                        Toast.makeText(getActivity(),"Problemas con la solicitud",Toast.LENGTH_LONG).show();
+                        app_db.ordersDetailDAO().printedOrder(orders.getId());
+                        startActivity(new Intent(getActivity(), FinishActivity.class));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                 }
-        ){
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> headers = new HashMap<String, String>();
-                headers.put("Content-Type", "application/x-www-form-urlencoded");
-                //params.put("Content-Type", "application/json; charset=utf-8");
+            },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.d("JORKE",error.getMessage()+"");
+                            Toast.makeText(getActivity(),"Problemas con la solicitud",Toast.LENGTH_LONG).show();
+                        }
+                    }
+            ){
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> headers = new HashMap<String, String>();
+                    headers.put("Content-Type", "application/x-www-form-urlencoded");
+                    //params.put("Content-Type", "application/json; charset=utf-8");
 
-                headers.put("Accept", "application/json");
-                return headers;
-            }
+                    headers.put("Accept", "application/json");
+                    return headers;
+                }
 
-           @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String,String>();
-                params.put("header",getOrderHeader());
-                params.put("detail",getListDetailAll());
-                Log.d("JORKE-SEND",params.toString());
-                return params;
-            }
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String,String>();
+                    params.put("header",getOrderHeader());
+                    //params.put("detail",getListDetailAll());
+                    params.put("detail",getListDetailFormated());
+                    Log.d("JORKE-SEND",params.toString());
+                    return params;
+                }
+            };
+
+            requestQueue= Volley.newRequestQueue(getContext());
+            requestQueue.add(stringRequest);
+        }
 
 
-        };
-
-        requestQueue= Volley.newRequestQueue(getContext());
-        requestQueue.add(stringRequest);
     }
 
 
@@ -220,7 +221,7 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
     public String getListDetailAll(){
         ArrayList<Map<String, String>> myList=new ArrayList<>();
 
-        List<OrdersDetail> details = app_db.ordersDetailDAO().getAllOrdersDetail(1);
+        List<OrdersDetail> details = app_db.ordersDetailDAO().getAllOrdersDetail(new int[]{1,2});
 
         Products products;
 
@@ -230,34 +231,120 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
             //params.put("priority",products.getPriority()+"");
             params.put("Quantity",row.getQuantity()+"");
             params.put("MenuItemID",products.getPos_id()+"");
-            params.put("type_id",products.getType_id()+"");
+            params.put("category_id",products.getCategory_id()+"");
+            myList.add(params);
+        }
+
+        Gson gson = new Gson();
+        return gson.toJson(myList);
+    }
+
+    public String getListDetailFormated(){
+        ArrayList<Map<String, String>> myList=new ArrayList<>();
+
+        Products products;
+
+        List<OrdersDetail> masas_list = app_db.ordersDetailDAO().getOrdersByCategories(new int[]{1,7},new int[]{1,2});
+
+        for (OrdersDetail row:masas_list){
+            Map<String, String> params = new HashMap<String,String>();
+            products = app_db.productsDAO().getProductById(row.getProduct_id());
+
+            params.put("id",row.getId()+"");
+            params.put("Quantity",row.getQuantity()+"");
+            params.put("MenuItemID",products.getPos_id()+"");
+            params.put("category_id",products.getCategory_id() +"");
+
+            if(products.getCategory_id() == 1){
+                List<OrdersDetail> det = app_db.ordersDetailDAO().getOrdersByCategories(new int[]{2,3,4,5,6},row.getId());
+
+                ArrayList<Map<String, String>> myListDet =new ArrayList<>();
+                JSONArray jsonArray=new JSONArray();
+
+                Products products1;
+
+                for (OrdersDetail data:det){
+                    Map<String, String> params_sub = new HashMap<String,String>();
+                    products1 = app_db.productsDAO().getProductById(data.getProduct_id());
+                    params_sub.put("id",data.getId()+"");
+                    params_sub.put("Quantity",data.getQuantity()+"");
+                    params_sub.put("MenuItemID",products1.getPos_id()+"");
+                    params_sub.put("category_id",products1.getCategory_id()+"");
+                    myListDet.add(params_sub);
+                }
+
+                Gson gson = new Gson();
+
+
+                params.put("adds",gson.toJson(myListDet));
+            }
 
             myList.add(params);
         }
+
+
+        /*for(Review row:listReviewTotal){
+            products = app_db.productsDAO().getProductByPosId(row.getPos_id());
+
+            if(products.getCategory_id() == 1){
+                Log.d("JORKE-ord",row.getId()+"");
+                List<Review> list = app_db.ordersDetailDAO().getChild(row.getId());
+                JSONArray det = new JSONArray();
+
+                for (Review data:list){
+
+                    try{
+                        JSONObject desc=new JSONObject();
+                        desc.put("id",data.getId()+"");
+
+                        det.put(desc);
+
+                    }catch (JSONException e){
+
+                    }
+                }
+
+                params.put("adds",det.toString());
+            }
+
+
+
+            //params.put("priority",products.getPriority()+"");
+            params.put("id",row.getId()+"");
+            params.put("Quantity",row.getQuantity()+"");
+            params.put("MenuItemID",products.getPos_id()+"");
+
+
+
+            myList.add(params);
+        }
+
+        Log.d("JORKE-res",myList.toString());*/
 
         Gson gson = new Gson();
         return gson.toJson(myList);
     }
 
     public String getListDetail(){
-        ArrayList<Map<String, String>> myList=new ArrayList<>();
+            ArrayList<Map<String, String>> myList=new ArrayList<>();
 
-        int pos_id=0;
+            int pos_id=0;
+            Products products;
 
-        for(Review row:listReviewTotal){
-            //products = app_db.productsDAO().getProductByPosId(row.getPos_id());
-            Map<String, String> params = new HashMap<String,String>();
-            //params.put("priority",products.getPriority()+"");
-            params.put("Quantity",row.getQuantity()+"");
-            pos_id = (row.getPos_id() == 0)?327:row.getPos_id();
-            params.put("MenuItemID",pos_id+"");
+            for(Review row:listReviewTotal){
+                products = app_db.productsDAO().getProductByPosId(row.getPos_id());
+                Map<String, String> params = new HashMap<String,String>();
+                //params.put("priority",products.getPriority()+"");
+                params.put("Quantity",row.getQuantity()+"");
+                pos_id = (row.getPos_id() == 0)?327:row.getPos_id();
+                params.put("MenuItemID",pos_id+"");
 
-            myList.add(params);
+                myList.add(params);
+            }
+
+            Gson gson = new Gson();
+            return gson.toJson(myList);
         }
-
-        Gson gson = new Gson();
-        return gson.toJson(myList);
-    }
 
     @Override
     public void onClickUpdateTotal() {

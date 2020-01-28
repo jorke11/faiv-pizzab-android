@@ -17,6 +17,7 @@ import com.jorgepinedo.fivepizza.Adapters.ListMenuAdapter;
 import com.jorgepinedo.fivepizza.Adapters.ListMenuAdapterTopping;
 import com.jorgepinedo.fivepizza.Database.App;
 import com.jorgepinedo.fivepizza.MainActivity;
+import com.jorgepinedo.fivepizza.Models.Ingredients;
 import com.jorgepinedo.fivepizza.Models.Orders;
 import com.jorgepinedo.fivepizza.Models.OrdersDetail;
 import com.jorgepinedo.fivepizza.Models.Products;
@@ -30,7 +31,7 @@ public class ToppingFragment extends Fragment  implements ListMenuAdapterTopping
 
     RecyclerView recycler_favorite,recycler_protein,recycler_vegetable;
     ListMenuAdapterTopping listMenuAdapterfav,listMenuAdapterVeg,listMenuAdapterPro;
-    ImageView image_table,image_massa,image_salsa,image_queso,image_topping,image_topping2;
+    ImageView image_table,image_massa,image_salsa,image_queso,image_topping,image_topping2,image_step;
 
     List<Products> favorite,protein,vegetable;
     Products current_product;
@@ -63,6 +64,7 @@ public class ToppingFragment extends Fragment  implements ListMenuAdapterTopping
         image_queso = view.findViewById(R.id.image_queso);
         image_topping = view.findViewById(R.id.image_topping);
         image_topping2 = view.findViewById(R.id.image_topping2);
+        image_step = view.findViewById(R.id.image_step);
 
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -98,51 +100,117 @@ public class ToppingFragment extends Fragment  implements ListMenuAdapterTopping
         topping_2 = Utils.getItem(getActivity(),"topping_2");
 
 
-
         int id;
 
+        id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/primer_topping", null, null);
+        image_step.setImageResource(id);
 
-        if(!masa.isEmpty()){
-            id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/" + masa, null, null);
-            image_massa.setImageResource(id);
+
+        List<Ingredients> ingredients= app_db.ordersDetailDAO().getcategoryExists(new int[]{1,2,3});
+
+        for (Ingredients row:ingredients){
+            if(row.getCategory_id() == 1){
+                id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/" + row.getUrl(), null, null);
+                image_massa.setImageResource(id);
+            }else if(row.getCategory_id() == 2){
+                id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/" + row.getUrl(), null, null);
+                image_queso.setImageResource(id);
+            }else if(row.getCategory_id() == 3){
+                id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/" + row.getUrl(), null, null);
+                image_salsa.setImageResource(id);
+            }
         }
 
-        if(!salsa.isEmpty()){
-            id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/" + salsa, null, null);
-            image_salsa.setImageResource(id);
-        }
+        List<Ingredients> toppings = app_db.ordersDetailDAO().getcategoryExists(new int[]{4,5,6});
 
-        if(!queso.isEmpty()){
-            id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/" + queso, null, null);
-            image_queso.setImageResource(id);
-        }
-
-
-        if(!topping_1.isEmpty()){
-            id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/" + topping_1, null, null);
-            image_topping.setImageResource(id);
-        }
-
-        if(!topping_2.isEmpty()){
-
-            Products products_1 = app_db.productsDAO().getProductByUrl(topping_1);
-            Products products_2 = app_db.productsDAO().getProductByUrl(topping_2);
-
-            id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/" + topping_2, null, null);
-            image_topping2.setImageResource(id);
-
-            if(products_1.getPriority() < products_2.getPriority()){
-                id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/" + topping_2, null, null);
+        if(toppings.size()>0){
+            if(toppings.size() == 1){
+                id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/segundo_topping", null, null);
+                image_step.setImageResource(id);
+                id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/"+toppings.get(0).getUrl(), null, null);
                 image_topping.setImageResource(id);
-                id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/" + topping_1, null, null);
-                image_topping2.setImageResource(id);
+                image_topping2.setImageDrawable(null);
             }
 
+            if(toppings.size() == 2){
+                id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/segundo_topping", null, null);
+                image_step.setImageResource(id);
+
+                id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/"+toppings.get(0).getUrl(), null, null);
+                image_topping.setImageResource(id);
+
+                int id2 = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/"+toppings.get(1).getUrl(), null, null);
+                image_topping2.setImageResource(id2);
+
+                if(toppings.get(0).getPriority() > toppings.get(1).getPriority()){
+                    image_topping.setImageResource(id2);
+                    image_topping2.setImageResource(id);
+                }
+            }
+
+        }else{
+            Log.d("JORKE","else");
+            id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/primer_topping", null, null);
+            image_step.setImageResource(id);
+            image_topping.setImageDrawable(null);
+            image_topping2.setImageDrawable(null);
         }
 
         ((MainActivity)getActivity()).hideInformation(false);
 
         return view;
+    }
+
+    @Override
+    public void onDragLongClick(View view,Products products) {
+        Log.d("JORKE","asd");
+        current_product=products;
+        ClipData clipData = ClipData.newPlainText("","");
+        View.DragShadowBuilder dragShadowBuilder=new View.DragShadowBuilder(view);
+        view.startDrag(clipData,dragShadowBuilder,view,0);
+    }
+
+
+    @Override
+    public void onClick(int id,int total) {
+
+        Log.d("JORKE-total",total+"");
+        Log.d("JORKE-id",id+"");
+
+        List<Ingredients> ingredients = app_db.ordersDetailDAO().getcategoryExists(new int[]{4,5,6});
+
+        if(ingredients.size() > 0){
+            if(ingredients.size()==1){
+                id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/segundo_topping", null, null);
+                image_step.setImageResource(id);
+                id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/"+ingredients.get(0).getUrl(), null, null);
+                image_topping.setImageResource(id);
+                image_topping2.setImageDrawable(null);
+            }
+
+            if(ingredients.size() == 2){
+                id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/"+ingredients.get(1).getUrl(), null, null);
+                image_topping2.setImageResource(id);
+
+                final Fragment fragment =new DrinkFragment();
+
+                ((MainActivity) getActivity()).chageFragment(fragment);
+                ((MainActivity) getActivity()).enableBtnsSix();
+            }
+
+        }else{
+            id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/primer_topping", null, null);
+            image_step.setImageResource(id);
+            image_topping.setImageDrawable(null);
+            image_topping2.setImageDrawable(null);
+        }
+
+
+        listMenuAdapterfav.notifyDataSetChanged();
+        listMenuAdapterPro.notifyDataSetChanged();
+        listMenuAdapterVeg.notifyDataSetChanged();
+
+        ((MainActivity)getActivity()).loadTotal();
     }
 
     View.OnDragListener dragListener=new View.OnDragListener(){
@@ -219,49 +287,7 @@ public class ToppingFragment extends Fragment  implements ListMenuAdapterTopping
         }
     };
 
-    @Override
-    public void onDragLongClick(View view,Products products) {
-        Log.d("JORKE","asd");
-        current_product=products;
-        ClipData clipData = ClipData.newPlainText("","");
-        View.DragShadowBuilder dragShadowBuilder=new View.DragShadowBuilder(view);
-        view.startDrag(clipData,dragShadowBuilder,view,0);
-    }
 
-
-    @Override
-    public void onClick(int id,int total) {
-
-        Log.d("JORKE-total",total+"");
-
-        if (total == 0) {
-            image_topping.setImageResource(id);
-            if( id == 0){
-                image_topping.setImageDrawable(null);
-            }
-
-        } else if (total == 1) {
-            image_topping2.setImageResource(id);
-
-            if( id == 0){
-                image_topping2.setImageDrawable(null);
-            }
-
-        }else if(total==2){
-
-            final Fragment fragment =new DrinkFragment();
-
-            ((MainActivity) getActivity()).chageFragment(fragment);
-            ((MainActivity) getActivity()).enableBtnsSix();
-        }
-
-
-        listMenuAdapterfav.notifyDataSetChanged();
-        listMenuAdapterPro.notifyDataSetChanged();
-        listMenuAdapterVeg.notifyDataSetChanged();
-
-        ((MainActivity)getActivity()).loadTotal();
-    }
 
     /*@Override
     public void onClick(View view, Products products) {

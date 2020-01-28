@@ -91,7 +91,7 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_products"
                     android:layout_width="match_parent"
-                    android:layout_height="500dp" />
+                    android:layout_height="450dp" />
                 <Button
                     android:id="@+id/btn_update_product"
                     android:layout_width="match_parent"
@@ -106,10 +106,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/holo_green_dark"
-            android:textSize="20dp"
+            android:textSize="10dp"
             android:fontFamily="helvetica"
             android:text="Cerrar"
             android:onClick="onClick"
+            android:layout_marginBottom="30dp"
             />
     </LinearLayout>
 

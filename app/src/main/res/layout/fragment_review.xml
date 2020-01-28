@@ -32,6 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight=".25"
+                android:scrollbars="vertical"
                 android:id="@+id/recycler_review"
                 android:layout_marginRight="20dp">
 
@@ -67,6 +68,19 @@
                     android:textSize="16dp"
                     android:textAllCaps="false"
                     />
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
+                    android:text="Ordenar ahora"
+                    android:background="@drawable/round_button_green"
+                    android:textColor="@color/white"
+                    android:fontFamily="helvetica"
+                    android:textSize="16dp"
+                    android:textAllCaps="false"
+                    android:visibility="gone"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -92,6 +106,7 @@
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:scrollbars="vertical"
                 android:layout_weight=".25"
                 android:id="@+id/recycler_reviewed">
 

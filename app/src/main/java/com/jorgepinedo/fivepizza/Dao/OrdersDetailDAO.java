@@ -7,6 +7,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.jorgepinedo.fivepizza.Models.Categories;
+import com.jorgepinedo.fivepizza.Models.Ingredients;
 import com.jorgepinedo.fivepizza.Models.Orders;
 import com.jorgepinedo.fivepizza.Models.OrdersDetail;
 import com.jorgepinedo.fivepizza.Models.Review;
@@ -78,6 +79,12 @@ public interface OrdersDetailDAO {
             "WHERE p.category_id IN (:cat)and o.status_id=1")
     int categoryExists(int[] cat);
 
+    @Query("select o.id,p.title,p.url,p.category_id,p.priority \n" +
+            "from OrdersDetail o\n" +
+            "join products p ON p.id=o.product_id " +
+            "WHERE p.category_id IN (:cat)and o.status_id=1")
+    List<Ingredients> getcategoryExists(int[] cat);
+
     @Query("select sum(p.price * d.quantity) as total \n" +
             "from OrdersDetail d\n" +
             "join products p ON p.id=d.product_id " +
@@ -122,8 +129,9 @@ public interface OrdersDetailDAO {
     @Query("DELETE FROM OrdersDetail where id=:id")
     void deleteById(int id);
 
-    @Query("DELETE FROM OrdersDetail where product_id IN(SELECT id from products where category_id=:category_id)")
-    void deleteByCategory(int category_id);
+    @Query("DELETE FROM OrdersDetail where product_id IN(SELECT id from products where category_id=:category_id) " +
+            "AND parent_id=:parent_id")
+    void deleteByCategory(int category_id,int parent_id);
 
 
     @Delete

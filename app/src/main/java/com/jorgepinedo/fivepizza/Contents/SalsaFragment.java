@@ -180,7 +180,6 @@ public class SalsaFragment extends Fragment implements ListMenuAdapter.OnDragLis
             if(row.getProduct_id()==current_product.getId()){
                 ((MainActivity)getActivity()).chageFragment(fragment);
                 ((MainActivity)getActivity()).enableBtnsFour();
-                Toast.makeText(getActivity(),"Ya tienes la "+current_product.getTitle()+" seccionada!",Toast.LENGTH_SHORT).show();
             }else {
                 //Products old_product = app_db.productsDAO().getProductById(row.getProduct_id());
 

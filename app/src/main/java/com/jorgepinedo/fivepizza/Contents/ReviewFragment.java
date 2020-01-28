@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,10 +59,11 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
 
     Button payment,other_pizza;
     StringRequest stringRequest;
-
-    private static final String IP = Utils.IP;
-
+    private String IP="";
     RequestQueue requestQueue;
+
+    private ProgressBar spinner;
+
 
     public ReviewFragment() {
     }
@@ -74,6 +76,8 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
         app_db = Utils.newInstanceDB(getActivity());
 
         View view = inflater.inflate(R.layout.fragment_review, container, false);
+
+        IP = Utils.getItem(getActivity(),"IP_SERVER");
 
         int[] status={1,2};
 
@@ -102,6 +106,8 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
 
         payment = view.findViewById(R.id.payment);
         other_pizza = view.findViewById(R.id.other_pizza);
+        spinner = view.findViewById(R.id.progressBar);
+
 
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -139,7 +145,6 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
         });
 
 
-
         ((MainActivity)getActivity()).hideInformation(true);
 
         return view;
@@ -147,6 +152,10 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
 
 
     public void createOrder(){
+        other_pizza.setEnabled(false);
+        payment.setVisibility(View.GONE);
+        spinner.setVisibility(View.VISIBLE);
+
         String url=IP+"/api/orders";
         Log.d("JORKE",url);
 
@@ -154,6 +163,7 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
 
 
         if(Utils.getItem(getActivity(),"PRINTER").equals("false")){
+            app_db.ordersDetailDAO().printedOrder(orders.getId());
             startActivity(new Intent(getActivity(), FinishActivity.class));
         }else{
             stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -163,9 +173,17 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
                     try {
                         JSONObject obj = new JSONObject(response);
                         Log.d("JORKE-1",response);
-                    /*Toast.makeText(getActivity(),"Solicitud creada #"+obj.getString("OrderID"),Toast.LENGTH_LONG).show();*/
+
+                        orders.setOrder_post_id(Integer.parseInt(obj.getString("OrderID")));
+                        app_db.ordersDAO().update(orders);
+
+                        other_pizza.setEnabled(true);
+                        payment.setVisibility(View.VISIBLE);
+                        spinner.setVisibility(View.GONE);
                         app_db.ordersDetailDAO().printedOrder(orders.getId());
                         startActivity(new Intent(getActivity(), FinishActivity.class));
+
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -175,6 +193,8 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             Log.d("JORKE",error.getMessage()+"");
+                            payment.setVisibility(View.VISIBLE);
+                            spinner.setVisibility(View.GONE);
                             Toast.makeText(getActivity(),"Problemas con la solicitud",Toast.LENGTH_LONG).show();
                         }
                     }
@@ -209,10 +229,12 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
 
 
     public String getOrderHeader(){
+        Orders orders = app_db.ordersDAO().getOrderCurrent();
         HashMap<String, String> params = new HashMap<>();
-        params.put("DineInTableID","1");
+        params.put("DineInTableID",Utils.getItem(getActivity(),"TABLE"));
         params.put("StationID","1");
         params.put("OrderStatus","1");
+        params.put("order_pos_id",orders.getOrder_post_id()+"");
         params.put("GuestCheckPrinted","false");
         Gson gson = new Gson();
         return gson.toJson(params);

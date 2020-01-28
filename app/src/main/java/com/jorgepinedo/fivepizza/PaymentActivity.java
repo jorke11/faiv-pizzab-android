@@ -13,7 +13,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.jorgepinedo.fivepizza.Adapters.ListMenuAdapterPayment;
 import com.jorgepinedo.fivepizza.Adapters.ListMenuAdapterReview;
 import com.jorgepinedo.fivepizza.Contents.OneFragment;
@@ -22,8 +30,13 @@ import com.jorgepinedo.fivepizza.Models.Orders;
 import com.jorgepinedo.fivepizza.Models.Review;
 import com.jorgepinedo.fivepizza.Tools.Utils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PaymentActivity extends AppCompatActivity  implements ListMenuAdapterPayment.EventCustomer{
 
@@ -33,12 +46,18 @@ public class PaymentActivity extends AppCompatActivity  implements ListMenuAdapt
     Button btn_pay;
     TextView tv_service,tv_total;
 
+    StringRequest stringRequest;
+    private String IP ="";
+    RequestQueue requestQueue;
+
     float total = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
+
+        IP=Utils.getItem(this,"IP_SERVER");
 
         app_db = Utils.newInstanceDB(this);
 
@@ -99,11 +118,11 @@ public class PaymentActivity extends AppCompatActivity  implements ListMenuAdapt
                         dialog.dismiss();
                         orders.setService(0);
                         app_db.ordersDAO().update(orders);
-                        tv_service.setText("S0");
+                        tv_service.setText("0");
 
                         String total_formated = Utils.numberFormat(Math.round(total));
                         tv_total.setText(total_formated);
-                        finishOrder(orders);
+                        finishOrder(orders,0);
 
                     }
                 });
@@ -124,7 +143,7 @@ public class PaymentActivity extends AppCompatActivity  implements ListMenuAdapt
 
                         tv_service.setText(total_service);
                         tv_total.setText(total_formated);
-                        finishOrder(orders);
+                        finishOrder(orders,10);
                     }
                 });
             }
@@ -132,7 +151,7 @@ public class PaymentActivity extends AppCompatActivity  implements ListMenuAdapt
 
     }
 
-    private void finishOrder(final Orders orders){
+    private void finishOrder(final Orders orders, final int tip){
         final AlertDialog dialog;
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(PaymentActivity.this);
         View mView=getLayoutInflater().inflate(R.layout.dialog_close_waiter,null);
@@ -154,18 +173,73 @@ public class PaymentActivity extends AppCompatActivity  implements ListMenuAdapt
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                orders.setStatus_id(2);
-                app_db.ordersDAO().update(orders);
-                app_db.ordersDetailDAO().updateFinishOrder(orders.getId());
-                                cleanImage();
-                Utils.setItem(PaymentActivity.this,"status","finalizado");
-                Intent i = new Intent(PaymentActivity.this,LockActivity.class);
-                Bundle b = new Bundle();
-                b.putString("from","payment");
-                i.putExtras(b);
-                startActivity(i);
+                finishPayment(tip);
             }
         });
+    }
+
+    public void finishPayment(final int tip){
+
+        final Orders orders = app_db.ordersDAO().getOrderCurrent();
+
+        String url=IP+"/api/orders";
+
+        stringRequest = new StringRequest(Request.Method.PUT, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    Log.d("JORKE-1",response);
+
+                    orders.setStatus_id(2);
+                    app_db.ordersDAO().update(orders);
+                    app_db.ordersDetailDAO().updateFinishOrder(orders.getId());
+                    cleanImage();
+                    Utils.setItem(PaymentActivity.this,"status","finalizado");
+                    Intent i = new Intent(PaymentActivity.this,LockActivity.class);
+                    Bundle b = new Bundle();
+                    b.putString("from","payment");
+                    i.putExtras(b);
+                    startActivity(i);
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("JORKE",error.getMessage()+"");
+                        Toast.makeText(PaymentActivity.this,"Problemas con la solicitud",Toast.LENGTH_LONG).show();
+                    }
+                }
+        ){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/x-www-form-urlencoded");
+                //params.put("Content-Type", "application/json; charset=utf-8");
+                headers.put("Accept", "application/json");
+                return headers;
+            }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String,String>();
+                params.put("order_id",orders.getId()+"");
+                params.put("GratuityPercent",tip+"");
+                params.put("order_pos_id",orders.getOrder_post_id()+"");
+                /*params.put("detail",getListDetailFormated());
+                Log.d("JORKE-SEND",params.toString());*/
+                return params;
+            }
+        };
+
+        requestQueue= Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
 
     private void cleanImage() {

@@ -290,7 +290,7 @@
             android:layout_height="50dp"
             app:cardBackgroundColor="@color/blue_menu"
             app:cardCornerRadius="10dp"
-            android:layout_marginRight="50dp">
+            >
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -300,7 +300,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="helvetica"
-                    android:text="SubTotal: "
+                    android:text="SubTotal: $"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="28dp" />
@@ -332,7 +332,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="helvetica"
-                    android:text="Total: "
+                    android:text="Total: $"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="28dp" />

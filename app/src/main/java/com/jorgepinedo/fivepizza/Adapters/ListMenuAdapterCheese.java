@@ -84,7 +84,7 @@ public class ListMenuAdapterCheese extends RecyclerView.Adapter<ListMenuAdapterC
             }
         });*/
 
-        holder.imageView.setOnClickListener(new View.OnClickListener() {
+        holder.card_complete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -94,7 +94,7 @@ public class ListMenuAdapterCheese extends RecyclerView.Adapter<ListMenuAdapterC
 
                 OrdersDetail parent = app_db.ordersDetailDAO().getParent();
 
-                app_db.ordersDetailDAO().deleteByCategory(products.getCategory_id());
+                app_db.ordersDetailDAO().deleteByCategory(products.getCategory_id(),parent.getId());
 
                 String url="";
 

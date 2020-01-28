@@ -59,7 +59,7 @@ public class InitSplashActivity extends AppCompatActivity {
         }
 
         if(Utils.getItem(InitSplashActivity.this,"IP_SERVER").equals("")){
-            Utils.setItem(InitSplashActivity.this,"IP_SERVER","http://192.168.1.4");
+            Utils.setItem(InitSplashActivity.this,"IP_SERVER","http://192.168.1.6");
         }
     }
 

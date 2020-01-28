@@ -88,7 +88,7 @@ public class ListMenuAdapter extends RecyclerView.Adapter<ListMenuAdapter.MenuVi
             }
         });*/
 
-        holder.imageView.setOnClickListener(new View.OnClickListener() {
+        holder.card_complete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

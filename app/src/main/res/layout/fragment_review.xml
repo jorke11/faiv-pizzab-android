@@ -86,35 +86,6 @@
         </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight=".5"
-            android:layout_margin="10dp"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Resumen Pedido"
-                android:layout_marginStart="30dp"
-                android:textSize="30dp"
-                android:textColor="@color/white"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
-                android:textAlignment="center"/>
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="vertical"
-                android:layout_weight=".25"
-                android:id="@+id/recycler_reviewed">
-
-            </android.support.v7.widget.RecyclerView>
-
-
-        </LinearLayout>
-
 
     </LinearLayout>
 

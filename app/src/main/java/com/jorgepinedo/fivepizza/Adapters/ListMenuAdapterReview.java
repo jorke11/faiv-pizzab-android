@@ -60,7 +60,7 @@ public class ListMenuAdapterReview extends RecyclerView.Adapter<ListMenuAdapterR
         holder.title.setText(row.getTitle());
         holder.tv_total_item.setText(row.getQuantity()+"");
 
-        String price = Utils.numberFormat(Math.round(row.getSubtotal()));
+        String price = Utils.numberFormat(Math.round(row.getSubtotal()*row.getQuantity()));
 
         //String price = Utils.numberFormat(row.getSubtotal());
 
@@ -74,7 +74,6 @@ public class ListMenuAdapterReview extends RecyclerView.Adapter<ListMenuAdapterR
                 app_db.ordersDetailDAO().updateQuantity(row.getId(),quantity);
                 app_db.ordersDetailDAO().updateChild(row.getId(),quantity);
                 notifyDataSetChanged();
-
                 eventCustomer.onClickUpdateTotal();
             }
         });

@@ -103,9 +103,6 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
 
 
         recycler_review = view.findViewById(R.id.recycler_review);
-        recycler_reviewed = view.findViewById(R.id.recycler_reviewed);
-
-
 
         payment = view.findViewById(R.id.payment);
         other_pizza = view.findViewById(R.id.other_pizza);
@@ -120,12 +117,12 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
         recycler_review.setAdapter(listMenuAdapter);
 
 
-        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getActivity());
+       /* LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getActivity());
         linearLayoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
         recycler_reviewed.setLayoutManager(linearLayoutManager2);
 
         listedMenuAdapter = new ListMenuAdapterReview(listedReviewTotal,R.layout.card_product_review,getActivity(), (ListMenuAdapterReview.EventCustomer) this,app_db);
-        recycler_reviewed.setAdapter(listedMenuAdapter);
+        recycler_reviewed.setAdapter(listedMenuAdapter);*/
 
 
 

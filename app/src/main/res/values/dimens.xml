@@ -9,4 +9,5 @@
     <dimen name="space_menu_height">40dp</dimen>
     <dimen name="size_button_menu">110dp</dimen>
     <dimen name="font_size_step">35dp</dimen>
+    <dimen name="font_size_menu">23dp</dimen>
 </resources>

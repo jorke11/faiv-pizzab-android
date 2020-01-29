@@ -13,32 +13,48 @@
                     android:layout_marginBottom="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Deseas agregar el servicio del (10%) a tu pedido?"
+                    android:text="Numero de Orden"
+                    android:fontFamily="helvetica"
                     android:textSize="30dp"
                     android:textAlignment="center"/>
-                <LinearLayout
+
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="10dp"
-                    android:weightSum="1">
-                        <Button
-                            android:id="@+id/btn_noaccept"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight=".5"
-                            android:text="No aceptar"
-                            android:background="@color/colorAccent"
-                            android:textColor="@color/white"/>
-                        <Button
-                            android:id="@+id/btn_accept"
-                            android:layout_marginLeft="10dp"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight=".5"
-                            android:background="@color/blue_menu"
-                            android:textColor="@color/white"
-                            android:text="Aceptar"/>
-                </LinearLayout>
+                    android:text="15"
+                    android:fontFamily="helvetica"
+                    android:textSize="200dp"
+                    android:textAlignment="center"/>
+
+                <TextView
+                    android:paddingTop="30dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No olvide tomar el ticket"
+                    android:fontFamily="helvetica"
+                    android:textSize="30dp"
+                    android:textAlignment="center"/>
+                <TextView
+                    android:paddingTop="30dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Acerquese a la caja para completar su Orden"
+                    android:fontFamily="helvetica"
+                    android:textSize="30dp"
+                    android:textAlignment="center"/>
+                <Button
+                    android:id="@+id/btn_accept"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/blue_menu"
+                    android:textColor="@color/white"
+                    android:fontFamily="helvetica"
+                    android:textSize="25dp"
+                    android:text="Entendido"/>
         </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

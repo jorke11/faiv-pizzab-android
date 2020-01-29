@@ -66,13 +66,6 @@ public class DrinkFragment extends Fragment implements ListMenuDrinkAdapter.even
         recycler_products.setAdapter(listMenuAdapter);
 
 
-        String masa = Utils.getItem(getActivity(),"masa");
-        String salsa= Utils.getItem(getActivity(),"salsa");
-        String queso= Utils.getItem(getActivity(),"queso");
-        topping_1 = Utils.getItem(getActivity(),"topping_1");
-        topping_2 = Utils.getItem(getActivity(),"topping_2");
-
-
         List<Ingredients> ingredients= app_db.ordersDetailDAO().getcategoryExists(new int[]{1,2,3});
 
         int id=0;

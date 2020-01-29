@@ -282,7 +282,7 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
         params.put("DineInTableID",Utils.getItem(getActivity(),"TABLE"));
         params.put("StationID","1");
         params.put("OrderStatus","1");
-        params.put("type_id_",orders.getType_id()+"");
+        params.put("type_id",orders.getType_id()+"");
         params.put("order_pos_id",orders.getOrder_post_id()+"");
         params.put("GuestCheckPrinted","false");
         Gson gson = new Gson();

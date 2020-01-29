@@ -40,7 +40,8 @@
                         android:layout_height="wrap_content"
                         android:text="Favoritos"
                         android:textColor="@color/white"
-                        android:textSize="15dp"/>
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="17dp"/>
                     <android.support.v7.widget.RecyclerView
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
@@ -54,7 +55,8 @@
                         android:layout_height="wrap_content"
                         android:text="Proteinas"
                         android:textColor="@color/white"
-                        android:textSize="15dp"/>
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="17dp"/>
                     <android.support.v7.widget.RecyclerView
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
@@ -68,7 +70,8 @@
                         android:layout_height="wrap_content"
                         android:text="Vegetales"
                         android:textColor="@color/white"
-                        android:textSize="15dp"/>
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="17dp"/>
 
                     <android.support.v7.widget.RecyclerView
                         android:layout_width="match_parent"

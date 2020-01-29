@@ -57,7 +57,6 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
     ListMenuAdapterReview listMenuAdapter,listedMenuAdapter,adapterConfirm;
     List<Review> listReviewMain,listReviewTotal,listReviewDrink,listedReviewMain,listedReviewTotal,listedReviewDrink;
 
-
     Button payment,other_pizza;
     StringRequest stringRequest;
     private String IP="";
@@ -75,6 +74,19 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
                              Bundle savedInstanceState) {
 
         app_db = Utils.newInstanceDB(getActivity());
+
+
+        int total = app_db.ordersDetailDAO().getTotal(new int[]{1});
+
+        if(total==0){
+            Toast.makeText(getActivity(),"No tienes productos Seleccionados",Toast.LENGTH_SHORT).show();
+            final Fragment fragment = new MasaFragment();
+            ((MainActivity)getActivity()).chageFragment(fragment);
+            ((MainActivity)getActivity()).enableBtnsTwo();
+        }
+
+        Log.d("JORKE",total+" a");
+
 
         View view = inflater.inflate(R.layout.fragment_review, container, false);
 

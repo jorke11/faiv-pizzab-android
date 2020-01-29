@@ -82,6 +82,7 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
         int[] status={1,2};
 
         listReviewMain = app_db.ordersDetailDAO().getReviewNotIn(7,status);
+
         listReviewDrink = app_db.ordersDetailDAO().getReviewIn(7,status);
 
         listReviewTotal = new ArrayList<>();

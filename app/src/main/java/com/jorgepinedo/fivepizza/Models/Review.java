@@ -19,11 +19,11 @@ public class Review implements Serializable {
 
     private int quantity;
 
-    private int subtotal;
+    private float subtotal;
 
     private int status_id;
 
-    public Review(int id, String title, int pos_id, int price, int quantity, int subtotal, int status_id) {
+    public Review(int id, String title, int pos_id, int price, int quantity, float subtotal, int status_id) {
         this.id = id;
         this.title = title;
         this.pos_id = pos_id;
@@ -73,11 +73,11 @@ public class Review implements Serializable {
         this.quantity = quantity;
     }
 
-    public int getSubtotal() {
+    public float getSubtotal() {
         return subtotal;
     }
 
-    public void setSubtotal(int subtotal) {
+    public void setSubtotal(float subtotal) {
         this.subtotal = subtotal;
     }
 

@@ -273,6 +273,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadTotal();
+    }
+
     public void chageFragment(Fragment fragment){
         getSupportFragmentManager().beginTransaction().replace(R.id.content, fragment).addToBackStack(null)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();

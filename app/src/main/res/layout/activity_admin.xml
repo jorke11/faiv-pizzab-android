@@ -78,6 +78,13 @@
                     android:text="Actualizar"
                     android:onClick="onClick"
                     />
+                <Button
+                    android:id="@+id/btn_restart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Reiniciar Pedido"
+                    android:onClick="onClick"
+                    />
             </LinearLayout>
             <LinearLayout
                 android:layout_weight="1"

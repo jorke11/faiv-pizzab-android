@@ -48,20 +48,24 @@ public class Utils {
 
     public static List<Review> joinAditionals(List<Review> list,App app_db){
         String products="";
-        int subtototal=0,pos_id=0;
+        int pos_id=0;
+        float subtototal=0;
 
         List<Review> list_products = new ArrayList<>();
         String titles="";
-        int subtotal=0;
+        float tax=0;
         for (Review row:list){
             Map result = joinTitleProduct(app_db.ordersDetailDAO().getChild(row.getId()));
 
             pos_id = row.getPos_id();
-            subtototal =row.getSubtotal() + Integer.parseInt(String.valueOf(result.get("subtotal")));
+
+            tax = (float)Math.ceil(row.getSubtotal()* 0.19);
+
+            subtototal =(row.getSubtotal() + tax)+ Integer.parseInt(String.valueOf(result.get("subtotal")));
 
             list_products.add(new Review(row.getId(),"Pizza: " +row.getTitle()+", "+ result.get("titles"),pos_id,0,
                     row.getQuantity(),
-                    Integer.parseInt(subtototal+""),row.getStatus_id()
+                    subtototal,row.getStatus_id()
             ));
         }
 
@@ -72,12 +76,14 @@ public class Utils {
         Map<String,String> result = new HashMap();
         String products="";
         int subtototal=0,pos_id=0;
+        float tax=0;
 
         for (Review row:list){
             products+=(products.isEmpty())?"":",";
             products+=" "+row.getTitle();
             pos_id = row.getPos_id();
-            subtototal+=row.getSubtotal();
+            tax = (float)Math.ceil(row.getSubtotal() * 0.19);
+            subtototal+=row.getSubtotal() + tax;
         }
 
         result.put("subtotal",subtototal+"");
@@ -86,7 +92,7 @@ public class Utils {
         //return new Review(1,"Pizza: " + products,pos_id,0,1,subtototal);
     }
 
-    public static String numberFormat(int number){
+    public static String numberFormat(double number){
         DecimalFormatSymbols simbolo=new DecimalFormatSymbols();
         simbolo.setDecimalSeparator(',');
         simbolo.setGroupingSeparator('.');

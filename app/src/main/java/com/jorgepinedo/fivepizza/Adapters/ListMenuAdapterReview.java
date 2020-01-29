@@ -60,7 +60,9 @@ public class ListMenuAdapterReview extends RecyclerView.Adapter<ListMenuAdapterR
         holder.title.setText(row.getTitle());
         holder.tv_total_item.setText(row.getQuantity()+"");
 
-        String price = Utils.numberFormat(row.getSubtotal());
+        String price = Utils.numberFormat(Math.round(row.getSubtotal()));
+
+        //String price = Utils.numberFormat(row.getSubtotal());
 
         holder.tv_price.setText("$"+price);
 

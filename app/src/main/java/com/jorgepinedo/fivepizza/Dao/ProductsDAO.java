@@ -26,8 +26,11 @@ public interface ProductsDAO {
     @Query("SELECT * from products WHERE url= :url")
     Products getProductByUrl(String url);
 
-    @Query("SELECT * from products WHERE pos_id= :pos_id")
+    @Query("SELECT * from products WHERE pos_id= :pos_id and category_id<>7")
     Products getProductByPosId(int pos_id);
+
+    @Query("SELECT * from products WHERE pos_id= :pos_id and category_id =:category_id")
+    Products getProductByPos(int pos_id,int category_id);
 
     @Insert
     void insert(Products... products);

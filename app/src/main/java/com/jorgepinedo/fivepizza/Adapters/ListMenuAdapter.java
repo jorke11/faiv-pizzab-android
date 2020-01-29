@@ -58,9 +58,8 @@ public class ListMenuAdapter extends RecyclerView.Adapter<ListMenuAdapter.MenuVi
     public void onBindViewHolder(@NonNull MenuViewHolder holder, int i) {
         final Products row = filterList.get(i);
 
-        //DecimalFormat formatter = new DecimalFormat("###,###,##0.00");
 
-        String price = Utils.numberFormat(row.getPrice());
+        String price = Utils.numberFormat(Math.ceil(row.getPrice()*1.19));
 
         //String title = (row.getTitle().length()>13)?row.getTitle().substring(0,13)+"..":row.getTitle();
 

@@ -20,10 +20,14 @@ public class Orders implements Serializable {
     @ColumnInfo(name="order_post_id")
     private int order_post_id;
 
+    @ColumnInfo(name="type_id")
+    private int type_id;
+
     public Orders() {
         this.status_id = 1;
         this.service = 0;
         this.order_post_id = 0;
+        this.type_id= 1;
     }
 
     public int getId() {
@@ -58,6 +62,14 @@ public class Orders implements Serializable {
         this.order_post_id = order_post_id;
     }
 
+    public int getType_id() {
+        return type_id;
+    }
+
+    public void setType_id(int type_id) {
+        this.type_id = type_id;
+    }
+
     @Override
     public String toString() {
         return "Orders{" +
@@ -65,6 +77,7 @@ public class Orders implements Serializable {
                 ", status_id=" + status_id +
                 ", service=" + service +
                 ", order_post_id=" + order_post_id +
+                ", type_id=" + type_id +
                 '}';
     }
 }

@@ -58,9 +58,11 @@ public class ListMenuAdapterTopping extends RecyclerView.Adapter<ListMenuAdapter
         final Products row = filterList.get(i);
 
         //String title = (row.getTitle().length()>13)?row.getTitle().substring(0,13)+"..":row.getTitle();
-        String price = Utils.numberFormat(row.getPrice());
+        String price = Utils.numberFormat(Math.ceil(row.getPrice()*1.19));
+
 
         //holder.title.setText(title);
+
         holder.title.setText(row.getTitle());
         holder.price.setText("$"+price);
 

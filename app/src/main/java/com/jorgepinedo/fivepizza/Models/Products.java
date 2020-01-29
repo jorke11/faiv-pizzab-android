@@ -19,7 +19,7 @@ public class Products implements Serializable {
     private String status;
 
     @ColumnInfo(name="price")
-    private int price;
+    private float price;
 
     @ColumnInfo(name="url")
     private String url;
@@ -40,7 +40,7 @@ public class Products implements Serializable {
     private int priority;
 
 
-    public Products(String title,int price, String url, int grams, int category_id, int pos_id, int type_id, int priority) {
+    public Products(String title,float price, String url, int grams, int category_id, int pos_id, int type_id, int priority) {
         this.title = title;
         this.status = "ok";
         this.price = price;
@@ -76,11 +76,11 @@ public class Products implements Serializable {
         this.status = status;
     }
 
-    public int getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 

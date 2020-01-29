@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,9 +60,10 @@ public class ListMenuDrinkAdapter extends RecyclerView.Adapter<ListMenuDrinkAdap
         final Products row = filterList.get(i);
 
         //String title = (row.getTitle().length()>13)?row.getTitle().substring(0,13)+"..":row.getTitle();
+        double tax = Math.ceil(row.getPrice() * 0.19);
+        String price = Utils.numberFormat(Math.round(tax + row.getPrice()));
 
-
-        String price = Utils.numberFormat(row.getPrice());
+        Log.d("JORKE",row.getPrice()+" "+row.getTitle());
 
         //holder.title.setText(title);
         holder.title.setText(row.getTitle());

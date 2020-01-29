@@ -23,9 +23,11 @@ import com.android.volley.toolbox.Volley;
 import com.jorgepinedo.fivepizza.Adapters.ListMenuAdapter;
 import com.jorgepinedo.fivepizza.Adapters.ListMenuAdapterAdmin;
 import com.jorgepinedo.fivepizza.Database.App;
+import com.jorgepinedo.fivepizza.Models.Orders;
 import com.jorgepinedo.fivepizza.Models.Products;
 import com.jorgepinedo.fivepizza.Tools.Utils;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -98,53 +100,94 @@ public class AdminActivity extends AppCompatActivity{
                 Toast.makeText(AdminActivity.this,"Parametros Guardados",Toast.LENGTH_SHORT).show();
 
                 break;
+
+            case R.id.btn_restart:
+                Orders orders = app_db.ordersDAO().getOrderCurrent();
+                orders.setOrder_post_id(0);
+                orders.setStatus_id(1);
+                app_db.ordersDAO().update(orders);
+                app_db.ordersDetailDAO().deleteDetail(orders.getId());
+                Toast.makeText(AdminActivity.this,"Orden Reiniciada",Toast.LENGTH_SHORT).show();
+                break;
+
             case R.id.btn_update_product:
+                url = IP+"/api/products";
+
+                Log.d("JORKE",url);
+
+                stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
 
 
-                for (Products row:list){
-
-                    if(row.getCategory_id() == 7){
-                        url = IP+"/api/menu-items/"+row.getPos_id();
-                    }else{
-                        url = IP+"/api/modifier-menu/"+row.getPos_id();
-                    }
-
-                    stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-
-                            try {
-                                JSONObject obj = new JSONObject(response);
-                                Log.d("JORKE-price",obj.getString("MenuItemText")+" "+obj.getString("DefaultUnitPrice"));
+                        try {
+                            JSONArray objArr = new JSONArray(response);
+                            for(int i=0;i<objArr.length();i++){
+                                JSONArray subArr = null;
+                                subArr = objArr.getJSONArray(i);
 
 
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    },
-                            new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    Log.d("JORKE",error.getMessage()+"");
-                                    Toast.makeText(AdminActivity.this,"Problemas con la solicitud",Toast.LENGTH_LONG).show();
+                                for(int j=0;j<subArr.length();j++){
+                                    JSONObject jsonObject = null;
+                                    jsonObject = subArr.getJSONObject(j);
+                                    Log.d("JORKE-server",jsonObject.toString());
+                                    Products products = null;
+
+                                    if(jsonObject.getString("category").equals("1")){
+                                        Log.d("JORKE-id","one "+jsonObject.getString("id"));
+                                        products = app_db.productsDAO().getProductByPos(Integer.parseInt(jsonObject.getString("id")),7);
+                                    }else{
+                                        Log.d("JORKE-id","two "+jsonObject.getString("id"));
+                                        products = app_db.productsDAO().getProductByPosId(Integer.parseInt(jsonObject.getString("id")));
+                                    }
+
+                                    if(products!=null){
+
+                                        products.setPrice(Float.parseFloat(jsonObject.getString("price")));
+                                        app_db.productsDAO().update(products);
+                                        Log.d("JORKE-P",products.toString());
+                                    }else{
+                                        Log.d("JORKE-notfount","this");
+
+                                    }
+
                                 }
-                            }
-                    ){
-                        @Override
-                        public Map<String, String> getHeaders() throws AuthFailureError {
-                            Map<String, String> headers = new HashMap<String, String>();
-                            headers.put("Content-Type", "application/x-www-form-urlencoded");
-                            //params.put("Content-Type", "application/json; charset=utf-8");
-                            headers.put("Accept", "application/json");
-                            return headers;
-                        }
-                    };
 
-                    requestQueue= Volley.newRequestQueue(this);
-                    requestQueue.add(stringRequest);
-                    Toast.makeText(AdminActivity.this,"Update server",Toast.LENGTH_SHORT).show();
-                }
+                            }
+
+                            listMenuAdapter.notifyDataSetChanged();
+
+                            Toast.makeText(AdminActivity.this,"Products Update from server",Toast.LENGTH_SHORT).show();
+
+
+                        } catch (JSONException e) {
+                            Log.d("JORKE-e",e.getMessage());
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.d("JORKE",error.getMessage()+"");
+                                Toast.makeText(AdminActivity.this,"Problemas con la solicitud",Toast.LENGTH_LONG).show();
+                            }
+                        }
+                ){
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        Map<String, String> headers = new HashMap<String, String>();
+                        headers.put("Content-Type", "application/x-www-form-urlencoded");
+                        //params.put("Content-Type", "application/json; charset=utf-8");
+                        headers.put("Accept", "application/json");
+                        return headers;
+                    }
+                };
+
+                requestQueue= Volley.newRequestQueue(this);
+                requestQueue.add(stringRequest);
+
+
 
                 break;
             case R.id.btn_close:

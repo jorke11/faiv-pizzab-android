@@ -100,9 +100,9 @@ public class InitSplashActivity extends AppCompatActivity {
        validateProduct(new Products("Agua con gas",2000,"agua_con_gas",10,7,5,1,1));
        validateProduct(new Products("Coca Cola",2000,"coca_cola",10,7,4,1,1));
        validateProduct(new Products("Coca Cola Zero",2000,"coca_cola_zero",10,7,2,1,1));
-       validateProduct(new Products("Sprite",2000,"sprite",10,7,2,1,1));
-       validateProduct(new Products("Quatro",2000,"quatro",10,7,2,1,1));
-       validateProduct(new Products("Kola Roman",2000,"kola_roman",10,7,2,1,1));
+       validateProduct(new Products("Sprite",2000,"sprite",10,7,0,1,1));
+       validateProduct(new Products("Quatro",2000,"quatro",10,7,0,1,1));
+       validateProduct(new Products("Kola Roman",2000,"kola_roman",10,7,0,1,1));
     }
 
     public void validateProduct(Products products){

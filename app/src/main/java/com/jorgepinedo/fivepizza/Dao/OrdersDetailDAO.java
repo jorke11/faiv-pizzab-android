@@ -52,7 +52,7 @@ public interface OrdersDetailDAO {
             "ORDER BY p.category_id ")
     List<OrdersDetail> getOrdersByCategories(int[] categories,int[] status);
 
-    @Query("select o.id,o.status_id,p.title,p.price,o.quantity,p.pos_id,(p.price * o.quantity) as subtotal\n" +
+    @Query("select o.id,o.status_id,p.title,p.price,o.quantity,p.pos_id,(p.price + (p.price*0.19) * o.quantity) as subtotal\n" +
             "from OrdersDetail o \n" +
             "JOIN products p ON p.id= o.product_id \n" +
             "WHERE p.category_id IN(:categories) and o.status_id IN(:status_id)")
@@ -85,7 +85,7 @@ public interface OrdersDetailDAO {
             "WHERE p.category_id IN (:cat)and o.status_id=1")
     List<Ingredients> getcategoryExists(int[] cat);
 
-    @Query("select sum(p.price * d.quantity) as total \n" +
+    @Query("select round(sum(p.price + (p.price*0.19) * d.quantity)+0.5) as total \n" +
             "from OrdersDetail d\n" +
             "join products p ON p.id=d.product_id " +
             "JOIN Orders o On o.id=d.order_id and o.status_id=1 and d.status_id IN(:status_id)")
@@ -125,6 +125,9 @@ public interface OrdersDetailDAO {
 
     @Query("DELETE FROM OrdersDetail where parent_id=:parent_id")
     void deleteAllChild(int parent_id);
+
+    @Query("DELETE FROM OrdersDetail where order_id=:order_id")
+    void deleteDetail(int order_id);
 
     @Query("DELETE FROM OrdersDetail where id=:id")
     void deleteById(int id);

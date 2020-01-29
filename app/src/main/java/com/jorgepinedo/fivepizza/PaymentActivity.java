@@ -197,7 +197,7 @@ public class PaymentActivity extends AppCompatActivity  implements ListMenuAdapt
                     app_db.ordersDetailDAO().updateFinishOrder(orders.getId());
                     cleanImage();
                     Utils.setItem(PaymentActivity.this,"status","finalizado");
-                    Intent i = new Intent(PaymentActivity.this,LockActivity.class);
+                    Intent i = new Intent(PaymentActivity.this,LockOrderActivity.class);
                     Bundle b = new Bundle();
                     b.putString("from","payment");
                     i.putExtras(b);

@@ -105,8 +105,6 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
         recycler_review = view.findViewById(R.id.recycler_review);
         recycler_reviewed = view.findViewById(R.id.recycler_reviewed);
 
-
-
         payment = view.findViewById(R.id.payment);
         other_pizza = view.findViewById(R.id.other_pizza);
         spinner = view.findViewById(R.id.progressBar);
@@ -128,14 +126,13 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
         recycler_reviewed.setAdapter(listedMenuAdapter);
 
 
-
         payment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                confirmOrder();
+                createOrder();
             }
-
         });
+
         other_pizza.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -147,7 +144,6 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
                 startActivity(i);
             }
         });
-
 
         ((MainActivity)getActivity()).hideInformation(true);
 
@@ -206,15 +202,17 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
         spinner.setVisibility(View.VISIBLE);
 
         String url=IP+"/api/orders";
-        Log.d("JORKE",url);
+
 
         final Orders orders = app_db.ordersDAO().getOrderCurrent();
 
 
         if(Utils.getItem(getActivity(),"PRINTER").equals("false")){
+            Log.d("JORKE","Without printer");
             app_db.ordersDetailDAO().printedOrder(orders.getId());
             startActivity(new Intent(getActivity(), FinishActivity.class));
         }else{
+            Log.d("JORKE",url);
             stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {

@@ -184,7 +184,8 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createOrder();
+                generarTicket(20);
+                //createOrder();
             }
         });
         btn_cancel.setOnClickListener(new View.OnClickListener() {
@@ -193,6 +194,36 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
                 dialog.dismiss();
             }
         });
+    }
+
+    public void generarTicket(int order_id){
+
+        final AlertDialog dialog;
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
+        View mView=getLayoutInflater().inflate(R.layout.dialog_finish_order,null);
+
+        Button accept = mView.findViewById(R.id.btn_accept);
+        TextView number_order = mView.findViewById(R.id.number_order);
+        number_order.setText(order_id+"");
+
+        mBuilder.setView(mView);
+
+        int width = (int)(getResources().getDisplayMetrics().widthPixels*0.90);
+        int height = (int)(getResources().getDisplayMetrics().heightPixels*0.90);
+
+        dialog = mBuilder.create();
+        //dialog.getWindow().setLayout(width, height);
+        dialog.setTitle("");
+        dialog.show();
+
+
+        accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createOrder();
+            }
+        });
+
     }
 
     public void createOrder(){

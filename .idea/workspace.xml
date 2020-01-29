@@ -19,9 +19,7 @@
     <bookmark url="file://$PROJECT_DIR$/app/src/main/java/com/jorgepinedo/fivepizza/Dao/OrdersDetailDAO.java" line="78" mnemonic="9" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e2ed46d-cc40-4186-82b3-bc78bcda70c3" name="Default Changelist" comment="add new features">
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/jorgepinedo/fivepizza/Contents/ReviewFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/jorgepinedo/fivepizza/Contents/ReviewFragment.java" afterDir="false" />
-    </list>
+    <list default="true" id="1e2ed46d-cc40-4186-82b3-bc78bcda70c3" name="Default Changelist" comment="add new features" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,20 +69,24 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jorgepinedo/fivepizza/Contents/ReviewFragment.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="295">
-              <caret line="237" column="51" selection-start-line="237" selection-start-column="51" selection-end-line="237" selection-end-column="51" />
+              <caret line="284" column="46" selection-start-line="284" selection-start-column="36" selection-end-line="284" selection-end-column="46" />
               <folding>
-                <element signature="e#4550#4698#0" expanded="true" />
-                <element signature="e#4697#4698#0" expanded="true" />
-                <element signature="e#4740#5142#0" expanded="true" />
-                <element signature="e#5141#5142#0" expanded="true" />
-                <element signature="e#7433#7449#0" expanded="true" />
-                <element signature="e#7913#7928#0" expanded="true" />
-                <element signature="e#9275#9290#0" expanded="true" />
-                <element signature="e#10015#10030#0" expanded="true" />
-                <element signature="e#10799#10814#0" expanded="true" />
-                <element signature="e#12899#12914#0" expanded="true" />
-                <element signature="e#13358#13359#0" expanded="true" />
-                <element signature="e#13415#13416#0" expanded="true" />
+                <element signature="e#4625#4774#0" expanded="true" />
+                <element signature="e#4773#4774#0" expanded="true" />
+                <element signature="e#4816#5218#0" expanded="true" />
+                <element signature="e#5217#5218#0" expanded="true" />
+                <element signature="e#6578#6725#0" expanded="true" />
+                <element signature="e#6724#6725#0" expanded="true" />
+                <element signature="e#6766#6916#0" expanded="true" />
+                <element signature="e#6915#6916#0" expanded="true" />
+                <element signature="e#9120#9136#0" expanded="true" />
+                <element signature="e#9600#9615#0" expanded="true" />
+                <element signature="e#11016#11031#0" expanded="true" />
+                <element signature="e#11756#11771#0" expanded="true" />
+                <element signature="e#12540#12555#0" expanded="true" />
+                <element signature="e#14640#14655#0" expanded="true" />
+                <element signature="e#15099#15100#0" expanded="true" />
+                <element signature="e#15156#15157#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -423,7 +425,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-3" y="26" width="1926" height="1031" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.19893616" />
@@ -725,20 +726,24 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jorgepinedo/fivepizza/Contents/ReviewFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="295">
-          <caret line="237" column="51" selection-start-line="237" selection-start-column="51" selection-end-line="237" selection-end-column="51" />
+          <caret line="284" column="46" selection-start-line="284" selection-start-column="36" selection-end-line="284" selection-end-column="46" />
           <folding>
-            <element signature="e#4550#4698#0" expanded="true" />
-            <element signature="e#4697#4698#0" expanded="true" />
-            <element signature="e#4740#5142#0" expanded="true" />
-            <element signature="e#5141#5142#0" expanded="true" />
-            <element signature="e#7433#7449#0" expanded="true" />
-            <element signature="e#7913#7928#0" expanded="true" />
-            <element signature="e#9275#9290#0" expanded="true" />
-            <element signature="e#10015#10030#0" expanded="true" />
-            <element signature="e#10799#10814#0" expanded="true" />
-            <element signature="e#12899#12914#0" expanded="true" />
-            <element signature="e#13358#13359#0" expanded="true" />
-            <element signature="e#13415#13416#0" expanded="true" />
+            <element signature="e#4625#4774#0" expanded="true" />
+            <element signature="e#4773#4774#0" expanded="true" />
+            <element signature="e#4816#5218#0" expanded="true" />
+            <element signature="e#5217#5218#0" expanded="true" />
+            <element signature="e#6578#6725#0" expanded="true" />
+            <element signature="e#6724#6725#0" expanded="true" />
+            <element signature="e#6766#6916#0" expanded="true" />
+            <element signature="e#6915#6916#0" expanded="true" />
+            <element signature="e#9120#9136#0" expanded="true" />
+            <element signature="e#9600#9615#0" expanded="true" />
+            <element signature="e#11016#11031#0" expanded="true" />
+            <element signature="e#11756#11771#0" expanded="true" />
+            <element signature="e#12540#12555#0" expanded="true" />
+            <element signature="e#14640#14655#0" expanded="true" />
+            <element signature="e#15099#15100#0" expanded="true" />
+            <element signature="e#15156#15157#0" expanded="true" />
           </folding>
         </state>
       </provider>

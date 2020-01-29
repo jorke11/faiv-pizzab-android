@@ -85,7 +85,7 @@ public interface OrdersDetailDAO {
             "WHERE p.category_id IN (:cat)and o.status_id=1")
     List<Ingredients> getcategoryExists(int[] cat);
 
-    @Query("select round(sum(p.price + (p.price*0.19) * d.quantity)+0.5) as total \n" +
+    @Query("select sum(((p.price * d.quantity * 0.19)+0.5) + (p.price * d.quantity)) as total \n" +
             "from OrdersDetail d\n" +
             "join products p ON p.id=d.product_id " +
             "JOIN Orders o On o.id=d.order_id and o.status_id=1 and d.status_id IN(:status_id)")

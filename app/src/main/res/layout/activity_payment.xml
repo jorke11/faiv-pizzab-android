@@ -27,7 +27,7 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Carrito de Compras"
+            android:text="Orden Final"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="80dp" />

@@ -76,15 +76,8 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
 
         app_db = Utils.newInstanceDB(getActivity());
 
-        int total = app_db.ordersDetailDAO().getTotal(new int[]{1});
 
-        if(total==0){
-            Toast.makeText(getActivity(),"No tienes productos Seleccionados",Toast.LENGTH_SHORT).show();
-            final Fragment fragment = new MasaFragment();
-            ((MainActivity)getActivity()).chageFragment(fragment);
-            ((MainActivity)getActivity()).enableBtnsTwo();
-        }
-
+        validateTotal();
 
         View view = inflater.inflate(R.layout.fragment_review, container, false);
 
@@ -139,7 +132,9 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
         payment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createOrder();
+                if(validateTotal()){
+                    createOrder();
+                }
             }
         });
 
@@ -158,6 +153,20 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
         ((MainActivity)getActivity()).hideInformation(true);
 
         return view;
+    }
+
+    public boolean validateTotal(){
+        int total = app_db.ordersDetailDAO().getTotal(new int[]{1});
+
+        if(total == 0){
+            Toast.makeText(getActivity(),"No tienes productos Seleccionados",Toast.LENGTH_SHORT).show();
+            final Fragment fragment = new MasaFragment();
+            ((MainActivity)getActivity()).chageFragment(fragment);
+            ((MainActivity)getActivity()).enableBtnsTwo();
+            return false;
+        }else{
+            return true;
+        }
     }
 
 

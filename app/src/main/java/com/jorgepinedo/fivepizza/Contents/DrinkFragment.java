@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import com.jorgepinedo.fivepizza.Adapters.ListMenuDrinkAdapter;
 import com.jorgepinedo.fivepizza.Database.App;
 import com.jorgepinedo.fivepizza.MainActivity;
+import com.jorgepinedo.fivepizza.Models.Ingredients;
 import com.jorgepinedo.fivepizza.Models.Orders;
 import com.jorgepinedo.fivepizza.Models.OrdersDetail;
 import com.jorgepinedo.fivepizza.Models.Products;
@@ -71,33 +72,54 @@ public class DrinkFragment extends Fragment implements ListMenuDrinkAdapter.even
         topping_1 = Utils.getItem(getActivity(),"topping_1");
         topping_2 = Utils.getItem(getActivity(),"topping_2");
 
-        int id;
 
-        if(!masa.isEmpty()){
-            id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/" + masa, null, null);
-            image_massa.setImageResource(id);
+        List<Ingredients> ingredients= app_db.ordersDetailDAO().getcategoryExists(new int[]{1,2,3});
+
+        int id=0;
+
+        for (Ingredients row:ingredients){
+            if(row.getCategory_id() == 1){
+                id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/" + row.getUrl(), null, null);
+                image_massa.setImageResource(id);
+            }else if(row.getCategory_id() == 2){
+                id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/" + row.getUrl(), null, null);
+                image_queso.setImageResource(id);
+            }else if(row.getCategory_id() == 3){
+                id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/" + row.getUrl(), null, null);
+                image_salsa.setImageResource(id);
+            }
         }
 
-        if(!salsa.isEmpty()){
-            id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/" + salsa, null, null);
-            image_salsa.setImageResource(id);
+        List<Ingredients> toppings = app_db.ordersDetailDAO().getcategoryExists(new int[]{4,5,6});
+
+        if(toppings.size()>0){
+            if(toppings.size() == 1){
+
+                id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/"+toppings.get(0).getUrl(), null, null);
+                image_topping.setImageResource(id);
+                image_topping2.setImageDrawable(null);
+            }
+
+            if(toppings.size() == 2){
+
+                id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/"+toppings.get(0).getUrl(), null, null);
+                image_topping.setImageResource(id);
+
+                int id2 = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/"+toppings.get(1).getUrl(), null, null);
+                image_topping2.setImageResource(id2);
+
+                if(toppings.get(0).getPriority() > toppings.get(1).getPriority()){
+                    image_topping.setImageResource(id2);
+                    image_topping2.setImageResource(id);
+                }
+            }
+
+        }else{
+
+            image_topping.setImageDrawable(null);
+            image_topping2.setImageDrawable(null);
         }
 
-        if(!queso.isEmpty()){
-            id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/" + queso, null, null);
-            image_queso.setImageResource(id);
-        }
-
-
-        if(!topping_1.isEmpty()){
-            id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/" + topping_1, null, null);
-            image_topping.setImageResource(id);
-        }
-
-        if(!topping_2.isEmpty()){
-            id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/" + topping_2, null, null);
-            image_topping2.setImageResource(id);
-        }
 
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override

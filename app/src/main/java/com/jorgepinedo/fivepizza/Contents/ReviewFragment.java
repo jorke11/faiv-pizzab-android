@@ -157,8 +157,6 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
 
     public void confirmOrder(){
 
-
-
         final AlertDialog dialog;
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
         View mView=getLayoutInflater().inflate(R.layout.dialog_confirm_order,null);
@@ -397,29 +395,28 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
     }
 
     public String getListDetail(){
-            ArrayList<Map<String, String>> myList=new ArrayList<>();
+        ArrayList<Map<String, String>> myList=new ArrayList<>();
 
-            int pos_id=0;
-            Products products;
+        int pos_id=0;
+        Products products;
 
-            for(Review row:listReviewTotal){
-                products = app_db.productsDAO().getProductByPosId(row.getPos_id());
-                Map<String, String> params = new HashMap<String,String>();
-                //params.put("priority",products.getPriority()+"");
-                params.put("Quantity",row.getQuantity()+"");
-                pos_id = (row.getPos_id() == 0)?327:row.getPos_id();
-                params.put("MenuItemID",pos_id+"");
+        for(Review row:listReviewTotal){
+            products = app_db.productsDAO().getProductByPosId(row.getPos_id());
+            Map<String, String> params = new HashMap<String,String>();
+            //params.put("priority",products.getPriority()+"");
+            params.put("Quantity",row.getQuantity()+"");
+            pos_id = (row.getPos_id() == 0)?327:row.getPos_id();
+            params.put("MenuItemID",pos_id+"");
 
-                myList.add(params);
-            }
-
-            Gson gson = new Gson();
-            return gson.toJson(myList);
+            myList.add(params);
         }
+
+        Gson gson = new Gson();
+        return gson.toJson(myList);
+    }
 
     @Override
     public void onClickUpdateTotal() {
         ((MainActivity)getActivity()).loadTotal();
     }
 }
-

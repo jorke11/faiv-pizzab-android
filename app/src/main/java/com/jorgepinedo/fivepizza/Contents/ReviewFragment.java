@@ -1,5 +1,6 @@
 package com.jorgepinedo.fivepizza.Contents;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -35,6 +36,7 @@ import com.jorgepinedo.fivepizza.Models.Orders;
 import com.jorgepinedo.fivepizza.Models.OrdersDetail;
 import com.jorgepinedo.fivepizza.Models.Products;
 import com.jorgepinedo.fivepizza.Models.Review;
+import com.jorgepinedo.fivepizza.PaymentActivity;
 import com.jorgepinedo.fivepizza.R;
 import com.jorgepinedo.fivepizza.Tools.Utils;
 
@@ -52,8 +54,7 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
 
     App app_db;
     RecyclerView recycler_review,recycler_reviewed;
-    ListMenuAdapterReview listMenuAdapter,listedMenuAdapter;
-    List<Products> list;
+    ListMenuAdapterReview listMenuAdapter,listedMenuAdapter,adapterConfirm;
     List<Review> listReviewMain,listReviewTotal,listReviewDrink,listedReviewMain,listedReviewTotal,listedReviewDrink;
 
 
@@ -105,6 +106,7 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
         recycler_reviewed = view.findViewById(R.id.recycler_reviewed);
 
 
+
         payment = view.findViewById(R.id.payment);
         other_pizza = view.findViewById(R.id.other_pizza);
         spinner = view.findViewById(R.id.progressBar);
@@ -126,10 +128,11 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
         recycler_reviewed.setAdapter(listedMenuAdapter);
 
 
+
         payment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createOrder();
+                confirmOrder();
             }
 
         });
@@ -151,6 +154,51 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
         return view;
     }
 
+
+    public void confirmOrder(){
+
+
+
+        final AlertDialog dialog;
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
+        View mView=getLayoutInflater().inflate(R.layout.dialog_confirm_order,null);
+
+        Button accept = mView.findViewById(R.id.btn_accept);
+        Button btn_cancel = mView.findViewById(R.id.btn_cancel);
+
+        RecyclerView recycler_confirm = mView.findViewById(R.id.recycler_confirm);
+
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recycler_confirm.setLayoutManager(linearLayoutManager);
+
+        adapterConfirm = new ListMenuAdapterReview(listReviewTotal,R.layout.card_product_review,getActivity(), (ListMenuAdapterReview.EventCustomer) this,app_db);
+        recycler_confirm.setAdapter(adapterConfirm);
+
+        mBuilder.setView(mView);
+
+        int width = (int)(getResources().getDisplayMetrics().widthPixels*0.90);
+        int height = (int)(getResources().getDisplayMetrics().heightPixels*0.90);
+
+        dialog = mBuilder.create();
+        //dialog.getWindow().setLayout(width, height);
+        dialog.setTitle("");
+        dialog.show();
+
+
+        accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createOrder();
+            }
+        });
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+    }
 
     public void createOrder(){
         other_pizza.setEnabled(false);
@@ -183,7 +231,6 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
                         spinner.setVisibility(View.GONE);
                         app_db.ordersDetailDAO().printedOrder(orders.getId());
                         startActivity(new Intent(getActivity(), FinishActivity.class));
-
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -235,6 +282,7 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
         params.put("DineInTableID",Utils.getItem(getActivity(),"TABLE"));
         params.put("StationID","1");
         params.put("OrderStatus","1");
+        params.put("type_id",orders.getType_id()+"");
         params.put("order_pos_id",orders.getOrder_post_id()+"");
         params.put("GuestCheckPrinted","false");
         Gson gson = new Gson();
@@ -374,3 +422,4 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
         ((MainActivity)getActivity()).loadTotal();
     }
 }
+

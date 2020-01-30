@@ -20,9 +20,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -196,8 +198,7 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                generarTicket(20);
-                //createOrder();
+                createOrder();
             }
         });
         btn_cancel.setOnClickListener(new View.OnClickListener() {
@@ -268,7 +269,8 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
                         payment.setVisibility(View.VISIBLE);
                         spinner.setVisibility(View.GONE);
                         app_db.ordersDetailDAO().printedOrder(orders.getId());
-                        startActivity(new Intent(getActivity(), FinishActivity.class));
+                        generarTicket(Integer.parseInt(obj.getString("OrderID")));
+                        //startActivity(new Intent(getActivity(), FinishActivity.class));
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -306,20 +308,28 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
                 }
             };
 
+            RetryPolicy mRetryPolicy = new DefaultRetryPolicy(
+                    0,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+
+
+            stringRequest.setRetryPolicy(mRetryPolicy);
+
             requestQueue= Volley.newRequestQueue(getContext());
             requestQueue.add(stringRequest);
         }
-
-
     }
 
 
     public String getOrderHeader(){
         Orders orders = app_db.ordersDAO().getOrderCurrent();
         HashMap<String, String> params = new HashMap<>();
-        params.put("DineInTableID",Utils.getItem(getActivity(),"TABLE"));
+        //params.put("DineInTableID",Utils.getItem(getActivity(),"TABLE"));
         params.put("StationID","1");
         params.put("OrderStatus","1");
+        params.put("OrderType","2");
+        //params.put("OrderType",orders.getType_id()+"");
         params.put("type_id",orders.getType_id()+"");
         params.put("order_pos_id",orders.getOrder_post_id()+"");
         params.put("GuestCheckPrinted","false");

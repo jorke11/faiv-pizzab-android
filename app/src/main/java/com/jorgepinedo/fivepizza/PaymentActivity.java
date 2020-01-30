@@ -183,6 +183,7 @@ public class PaymentActivity extends AppCompatActivity  implements ListMenuAdapt
         Intent i = new Intent(PaymentActivity.this,LockOrderActivity.class);
         Bundle b = new Bundle();
         b.putString("from","payment");
+        b.putString("total",total+"");
         i.putExtras(b);
         startActivity(i);
     }

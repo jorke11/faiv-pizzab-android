@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.andrognito.patternlockview.PatternLockView;
 import com.andrognito.patternlockview.listener.PatternLockViewListener;
 import com.andrognito.patternlockview.utils.PatternLockUtils;
+import com.jorgepinedo.fivepizza.Adapters.ListMenuAdapterPayment;
 import com.jorgepinedo.fivepizza.Adapters.ListMenuAdapterReview;
 import com.jorgepinedo.fivepizza.Database.App;
 import com.jorgepinedo.fivepizza.Models.Orders;
@@ -20,16 +22,17 @@ import com.jorgepinedo.fivepizza.Tools.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LockOrderActivity extends AppCompatActivity  implements ListMenuAdapterReview.EventCustomer{
+public class LockOrderActivity extends AppCompatActivity implements ListMenuAdapterPayment.EventCustomer{
 
     PatternLockView mPatternLockView;
     String pattern_string="";
 
     RecyclerView recycler_review;
-    ListMenuAdapterReview listMenuAdapter;
+    ListMenuAdapterPayment listMenuAdapter;
     List<Review> listReviewMain,listReviewTotal,listReviewDrink;
     App app_db;
-    String from="";
+    String from="",total;
+    TextView tv_total;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,8 @@ public class LockOrderActivity extends AppCompatActivity  implements ListMenuAda
         Bundle extras = getIntent().getExtras();
 
         app_db = Utils.newInstanceDB(this);
+
+        tv_total = findViewById(R.id.tv_total);
 
 
         int[] status={4};
@@ -60,7 +65,7 @@ public class LockOrderActivity extends AppCompatActivity  implements ListMenuAda
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recycler_review.setLayoutManager(linearLayoutManager);
 
-        listMenuAdapter = new ListMenuAdapterReview(listReviewTotal,R.layout.card_product_review,this, (ListMenuAdapterReview.EventCustomer) this,app_db);
+        listMenuAdapter = new ListMenuAdapterPayment(listReviewTotal,R.layout.card_product_payment,this,this, app_db);
         recycler_review.setAdapter(listMenuAdapter);
 
         mPatternLockView = (PatternLockView) findViewById(R.id.pattern_lock_view);
@@ -68,6 +73,8 @@ public class LockOrderActivity extends AppCompatActivity  implements ListMenuAda
 
         if(extras!=null){
             from = extras.getString("from");
+            total = extras.getString("total");
+            tv_total.setText("$"+Utils.numberFormat(Float.parseFloat(total)));
         }
 
         Log.d("JORKE",from);

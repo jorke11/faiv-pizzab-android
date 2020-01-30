@@ -78,6 +78,7 @@ public class ListMenuAdapterReview extends RecyclerView.Adapter<ListMenuAdapterR
                 eventCustomer.onClickUpdateTotal();
             }
         });
+
         holder.btn_minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

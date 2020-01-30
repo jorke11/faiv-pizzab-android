@@ -117,14 +117,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Orders order = app_db.ordersDAO().getOrderCurrent();
 
         if(order==null){
-            Log.d("JORKE","qwd");
             app_db.ordersDAO().insert(new Orders());
             order = app_db.ordersDAO().getOrderCurrent();
         }
 
         if(param!=null){
             newRequest();
-            Log.d("JORKE-s",param.getString("status"));
             fragment = new MasaFragment();
             enableBtnsTwo();
         }

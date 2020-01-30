@@ -13,13 +13,14 @@ import com.andrognito.patternlockview.listener.PatternLockViewListener;
 import com.andrognito.patternlockview.utils.PatternLockUtils;
 import com.jorgepinedo.fivepizza.Adapters.ListMenuAdapterReview;
 import com.jorgepinedo.fivepizza.Database.App;
+import com.jorgepinedo.fivepizza.Models.Orders;
 import com.jorgepinedo.fivepizza.Models.Review;
 import com.jorgepinedo.fivepizza.Tools.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LockOrderActivity extends AppCompatActivity {
+public class LockOrderActivity extends AppCompatActivity  implements ListMenuAdapterReview.EventCustomer{
 
     PatternLockView mPatternLockView;
     String pattern_string="";
@@ -40,11 +41,13 @@ public class LockOrderActivity extends AppCompatActivity {
         app_db = Utils.newInstanceDB(this);
 
 
-        int[] status={1,2};
+        int[] status={4};
 
-        listReviewMain = app_db.ordersDetailDAO().getReviewNotIn(7,status);
+        Orders orders = app_db.ordersDAO().getLastOrder();
 
-        listReviewDrink = app_db.ordersDetailDAO().getReviewIn(7,status);
+        listReviewMain = app_db.ordersDetailDAO().getReviewNotIn(7,status,orders.getId());
+
+        listReviewDrink = app_db.ordersDetailDAO().getReviewIn(7,status,orders.getId());
 
         listReviewTotal = new ArrayList<>();
 
@@ -108,4 +111,9 @@ public class LockOrderActivity extends AppCompatActivity {
             Log.d("JORKE", "Pattern has been cleared");
         }
     };
+
+    @Override
+    public void onClickUpdateTotal() {
+
+    }
 }

@@ -11,12 +11,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppThemeHome">
-        <activity android:name=".LockOrderActivity"></activity>
+        <activity android:name=".LockOrderActivity">
+
+        </activity>
         <activity
             android:name=".AdminActivity"
             android:parentActivityName=".MainActivity"></activity>
         <activity android:name=".LockActivity" />
-        <activity android:name=".PaymentActivity"></activity>
+        <activity android:name=".PaymentActivity">
+
+        </activity>
         <activity android:name=".FinishActivity" />
         <activity android:name=".InitSplashActivity">
             <intent-filter>

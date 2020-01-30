@@ -75,17 +75,17 @@ public class PaymentActivity extends AppCompatActivity  implements ListMenuAdapt
         List<Review> listReviewMain,listReviewTotal,listReviewDrink;
 
         int[] state={3};
+        final Orders orders = app_db.ordersDAO().getOrderCurrent();
 
-        listReviewMain = app_db.ordersDetailDAO().getReviewNotIn(7,state);
+        listReviewMain = app_db.ordersDetailDAO().getReviewNotIn(7,state,orders.getId());
 
-        listReviewDrink = app_db.ordersDetailDAO().getReviewIn(7,state);
+        listReviewDrink = app_db.ordersDetailDAO().getReviewIn(7,state, orders.getId());
 
         listReviewTotal = new ArrayList<>();
 
         listReviewTotal.addAll(Utils.joinAditionals(listReviewMain,app_db));
         listReviewTotal.addAll(listReviewDrink);
 
-        final Orders orders = app_db.ordersDAO().getOrderCurrent();
 
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -178,6 +178,15 @@ public class PaymentActivity extends AppCompatActivity  implements ListMenuAdapt
         });
     }
 
+    public void redirectLock(){
+        Utils.setItem(PaymentActivity.this,"status","finalizado");
+        Intent i = new Intent(PaymentActivity.this,LockOrderActivity.class);
+        Bundle b = new Bundle();
+        b.putString("from","payment");
+        i.putExtras(b);
+        startActivity(i);
+    }
+
     public void finishPayment(final int tip){
 
         final Orders orders = app_db.ordersDAO().getOrderCurrent();
@@ -196,13 +205,8 @@ public class PaymentActivity extends AppCompatActivity  implements ListMenuAdapt
                     app_db.ordersDAO().update(orders);
                     app_db.ordersDetailDAO().updateFinishOrder(orders.getId());
                     cleanImage();
-                    Utils.setItem(PaymentActivity.this,"status","finalizado");
-                    Intent i = new Intent(PaymentActivity.this,LockOrderActivity.class);
-                    Bundle b = new Bundle();
-                    b.putString("from","payment");
-                    i.putExtras(b);
-                    startActivity(i);
 
+                    redirectLock();
 
                 } catch (JSONException e) {
                     e.printStackTrace();

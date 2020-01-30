@@ -149,7 +149,6 @@ public class ToppingFragment extends Fragment  implements ListMenuAdapterTopping
             }
 
         }else{
-            Log.d("JORKE","else");
             id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/primer_topping", null, null);
             image_step.setImageResource(id);
             image_topping.setImageDrawable(null);
@@ -163,7 +162,6 @@ public class ToppingFragment extends Fragment  implements ListMenuAdapterTopping
 
     @Override
     public void onDragLongClick(View view,Products products) {
-        Log.d("JORKE","asd");
         current_product=products;
         ClipData clipData = ClipData.newPlainText("","");
         View.DragShadowBuilder dragShadowBuilder=new View.DragShadowBuilder(view);
@@ -173,9 +171,6 @@ public class ToppingFragment extends Fragment  implements ListMenuAdapterTopping
 
     @Override
     public void onClick(int id,int total) {
-
-        Log.d("JORKE-total",total+"");
-        Log.d("JORKE-id",id+"");
 
         List<Ingredients> ingredients = app_db.ordersDetailDAO().getcategoryExists(new int[]{4,5,6});
 
@@ -224,61 +219,14 @@ public class ToppingFragment extends Fragment  implements ListMenuAdapterTopping
 
             switch (dragAction){
                 case DragEvent.ACTION_DRAG_ENTERED:
-                    Log.d("JORKE","ACTION_DRAG_ENTERED");
                     break;
 
                 case DragEvent.ACTION_DRAG_EXITED:
-                    Log.d("JORKE","ACTION_DRAG_EXITED");
                     break;
 
                 case DragEvent.ACTION_DROP:
 
-                    /*((MainActivity)getActivity()).chageFragment(new DrinkFragment());
-                    ((MainActivity)getActivity()).enableBtnsSix();*/
 
-
-                  /*  int total = app_db.ordersDetailDAO().categoryExists(4,5,6);
-
-                    Log.d("JORKE-total",total+"");
-
-                    if(total < 2){
-
-                        OrdersDetail row = app_db.ordersDetailDAO().getOrdersByProductId(current_product.getId());
-
-                        int id;
-
-                        if(row == null){
-                            app_db.ordersDetailDAO().insertAll(new OrdersDetail(1,current_product.getId(),1));
-                            if(total == 0){
-                                Utils.setItem(getActivity(),"topping_1",current_product.getUrl());
-                                id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/" + current_product.getUrl(), null, null);
-                                image_topping.setImageResource(id);
-                            }else if(total==1){
-                                Utils.setItem(getActivity(),"topping_2",current_product.getUrl());
-                                id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/" + current_product.getUrl(), null, null);
-                                image_topping2.setImageResource(id);
-                            }else{
-                                Log.d("JORKE","exceso "+total);
-                            }
-
-                        }else{
-                            Log.d("JORKE","else");
-                        }
-
-                        //final List<OrdersDetail> list = app_db.ordersDetailDAO().getOrdersByCategories("4,5,6");
-
-
-                    }else{
-                        Toast.makeText(getActivity(),"Solo puedes dos Toppings!",Toast.LENGTH_LONG).show();
-                    }
-
-
-                    listMenuAdapterfav.notifyDataSetChanged();
-                    listMenuAdapterPro.notifyDataSetChanged();
-                    listMenuAdapterVeg.notifyDataSetChanged();
-
-                    ((MainActivity)getActivity()).loadTotal();
-*/
 
                     break;
             }
@@ -289,47 +237,4 @@ public class ToppingFragment extends Fragment  implements ListMenuAdapterTopping
 
 
 
-    /*@Override
-    public void onClick(View view, Products products) {
-        current_product=products;
-
-        int total = app_db.ordersDetailDAO().categoryExists(4,5,6);
-
-        if(total < 2){
-            final OrdersDetail parent = app_db.ordersDetailDAO().getParent();
-            OrdersDetail row = app_db.ordersDetailDAO().getOrdersByProductId(current_product.getId());
-
-            int id;
-
-            if(row == null){
-
-                Orders orders = app_db.ordersDAO().getOrderCurrent();
-                app_db.ordersDetailDAO().insertAll(new OrdersDetail(orders.getId(),current_product.getId(),parent.getId()));
-                if(total == 0){
-                    Utils.setItem(getActivity(),"topping_1",current_product.getUrl());
-                    id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/" + current_product.getUrl(), null, null);
-                    image_topping.setImageResource(id);
-                }else if(total==1){
-                    Utils.setItem(getActivity(),"topping_2",current_product.getUrl());
-                    id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/" + current_product.getUrl(), null, null);
-                    image_topping2.setImageResource(id);
-                }else{
-                    Log.d("JORKE","exceso "+total);
-                }
-
-            }else{
-                Log.d("JORKE","else");
-            }
-
-        }else{
-            Toast.makeText(getActivity(),"Solo puedes dos Toppings!",Toast.LENGTH_LONG).show();
-        }
-
-
-        listMenuAdapterfav.notifyDataSetChanged();
-        listMenuAdapterPro.notifyDataSetChanged();
-        listMenuAdapterVeg.notifyDataSetChanged();
-
-        ((MainActivity)getActivity()).loadTotal();
-    }*/
 }

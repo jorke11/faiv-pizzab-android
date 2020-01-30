@@ -63,8 +63,6 @@ public class ListMenuDrinkAdapter extends RecyclerView.Adapter<ListMenuDrinkAdap
         double tax = Math.ceil(row.getPrice() * 0.19);
         String price = Utils.numberFormat(Math.round(tax + row.getPrice()));
 
-        Log.d("JORKE",row.getPrice()+" "+row.getTitle());
-
         //holder.title.setText(title);
         holder.title.setText(row.getTitle());
         holder.price.setText("$"+price);

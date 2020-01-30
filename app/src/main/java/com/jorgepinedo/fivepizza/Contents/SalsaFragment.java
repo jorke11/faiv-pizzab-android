@@ -99,11 +99,9 @@ public class SalsaFragment extends Fragment implements ListMenuAdapter.OnDragLis
 
             switch (dragAction){
                 case DragEvent.ACTION_DRAG_ENTERED:
-                    Log.d("JORKE","ACTION_DRAG_ENTERED");
                     break;
 
                 case DragEvent.ACTION_DRAG_EXITED:
-                    Log.d("JORKE","ACTION_DRAG_EXITED");
                     break;
 
                 case DragEvent.ACTION_DROP:
@@ -170,8 +168,6 @@ public class SalsaFragment extends Fragment implements ListMenuAdapter.OnDragLis
         final Fragment fragment =new QuesoFragment();
 
         final OrdersDetail parent = app_db.ordersDetailDAO().getParent();
-
-        Log.d("JORKE",parent.toString());
 
 
        final OrdersDetail row = app_db.ordersDetailDAO().getOrdersByCategoryId(current_product.getCategory_id());

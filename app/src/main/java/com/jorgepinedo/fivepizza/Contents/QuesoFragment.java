@@ -125,11 +125,11 @@ public class QuesoFragment extends Fragment implements ListMenuAdapterCheese.OnD
 
             switch (dragAction){
                 case DragEvent.ACTION_DRAG_ENTERED:
-                    Log.d("JORKE","ACTION_DRAG_ENTERED");
+
                     break;
 
                 case DragEvent.ACTION_DRAG_EXITED:
-                    Log.d("JORKE","ACTION_DRAG_EXITED");
+
                     break;
 
                 case DragEvent.ACTION_DROP:

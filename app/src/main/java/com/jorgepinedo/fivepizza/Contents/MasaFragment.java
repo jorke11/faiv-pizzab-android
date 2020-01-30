@@ -111,11 +111,11 @@ public class MasaFragment extends Fragment implements ListMenuAdapter.OnDragList
 
             switch (dragAction){
                 case DragEvent.ACTION_DRAG_ENTERED:
-                    Log.d("JORKE","ACTION_DRAG_ENTERED");
+
                     break;
 
                 case DragEvent.ACTION_DRAG_EXITED:
-                    Log.d("JORKE","ACTION_DRAG_EXITED");
+
                     break;
 
                 case DragEvent.ACTION_DROP:

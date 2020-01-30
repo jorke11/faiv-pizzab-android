@@ -34,7 +34,6 @@ public class LockActivity extends AppCompatActivity {
             from = extras.getString("from");
         }
 
-        Log.d("JORKE",from);
     }
 
     private PatternLockViewListener mPatternLockViewListener = new PatternLockViewListener() {

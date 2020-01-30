@@ -22,6 +22,9 @@ public interface OrdersDAO {
     @Query("SELECT * from orders WHERE status_id=1")
     Orders getOrderCurrent();
 
+    @Query("SELECT * from orders Order By id desc limit 1")
+    Orders getLastOrder();
+
     @Insert
     void insert(Orders... orders);
 

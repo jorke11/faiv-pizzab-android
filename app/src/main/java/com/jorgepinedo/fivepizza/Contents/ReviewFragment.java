@@ -20,9 +20,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -84,6 +86,8 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
         IP = Utils.getItem(getActivity(),"IP_SERVER");
 
         int[] status={1,2};
+
+        Orders orders=app_db.ordersDAO().getOrderCurrent();
 
         listReviewMain = app_db.ordersDetailDAO().getReviewNotIn(7,status);
 
@@ -172,8 +176,6 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
 
     public void confirmOrder(){
 
-
-
         final AlertDialog dialog;
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
         View mView=getLayoutInflater().inflate(R.layout.dialog_confirm_order,null);
@@ -216,6 +218,7 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
     }
 
     public void createOrder(){
+        Log.d("JORKE","createOrder");
         other_pizza.setEnabled(false);
         payment.setVisibility(View.GONE);
         spinner.setVisibility(View.VISIBLE);
@@ -257,7 +260,7 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Log.d("JORKE",error.getMessage()+"");
+                            Log.d("JORKE-eer",error.getMessage()+"");
                             payment.setVisibility(View.VISIBLE);
                             spinner.setVisibility(View.GONE);
                             Toast.makeText(getActivity(),"Problemas con la solicitud",Toast.LENGTH_LONG).show();
@@ -285,16 +288,24 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
                 }
             };
 
-            requestQueue= Volley.newRequestQueue(getContext());
+            RetryPolicy mRetryPolicy = new DefaultRetryPolicy(
+                    0,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+
+
+            stringRequest.setRetryPolicy(mRetryPolicy);
+
+            requestQueue = Volley.newRequestQueue(getContext());
             requestQueue.add(stringRequest);
         }
-
-
     }
 
 
     public String getOrderHeader(){
+        Log.d("JORKE","getOrderHeader");
         Orders orders = app_db.ordersDAO().getOrderCurrent();
+        Log.d("JORKE",orders.toString());
         HashMap<String, String> params = new HashMap<>();
         params.put("DineInTableID",Utils.getItem(getActivity(),"TABLE"));
         params.put("StationID","1");
@@ -328,6 +339,7 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
     }
 
     public String getListDetailFormated(){
+        Log.d("JORKE","getListDetailFormated");
         ArrayList<Map<String, String>> myList=new ArrayList<>();
 
         Products products;
@@ -369,45 +381,6 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
 
             myList.add(params);
         }
-
-
-        /*for(Review row:listReviewTotal){
-            products = app_db.productsDAO().getProductByPosId(row.getPos_id());
-
-            if(products.getCategory_id() == 1){
-                Log.d("JORKE-ord",row.getId()+"");
-                List<Review> list = app_db.ordersDetailDAO().getChild(row.getId());
-                JSONArray det = new JSONArray();
-
-                for (Review data:list){
-
-                    try{
-                        JSONObject desc=new JSONObject();
-                        desc.put("id",data.getId()+"");
-
-                        det.put(desc);
-
-                    }catch (JSONException e){
-
-                    }
-                }
-
-                params.put("adds",det.toString());
-            }
-
-
-
-            //params.put("priority",products.getPriority()+"");
-            params.put("id",row.getId()+"");
-            params.put("Quantity",row.getQuantity()+"");
-            params.put("MenuItemID",products.getPos_id()+"");
-
-
-
-            myList.add(params);
-        }
-
-        Log.d("JORKE-res",myList.toString());*/
 
         Gson gson = new Gson();
         return gson.toJson(myList);

@@ -92,8 +92,6 @@ public class ListMenuAdapterTopping extends RecyclerView.Adapter<ListMenuAdapter
                     total = app_db.ordersDetailDAO().categoryExists(new int[]{4,5,6});
 
                     if(total == 0){
-                        Log.d("JORKE","total "+total);
-                        Log.d("JORKE","totalnew ");
                         app_db.ordersDetailDAO().insertAll(new OrdersDetail(orders.getId(), row.getId(), parent.getId()));
                         Utils.setItem(activity, "topping_1", row.getUrl());
                         id = activity.getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/" + row.getUrl(), null, null);
@@ -105,14 +103,12 @@ public class ListMenuAdapterTopping extends RecyclerView.Adapter<ListMenuAdapter
 
                         total++;
                     }else{
-                        Log.d("JORKE", "exceso " + total);
                         Toast.makeText(activity,"Solo puedes dos Toppings!",Toast.LENGTH_LONG).show();
                     }
 
                 }else{
                     app_db.ordersDetailDAO().deleteById(det.getId());
                     total = app_db.ordersDetailDAO().categoryExists(new int[]{4,5,6});
-                    Log.d("JORKE---",total+"");
                     id=0;
                 }
 

@@ -55,7 +55,14 @@ public interface OrdersDetailDAO {
     @Query("select o.id,o.status_id,p.title,p.price,o.quantity,p.pos_id,(p.price + (p.price*0.19) * o.quantity) as subtotal\n" +
             "from OrdersDetail o \n" +
             "JOIN products p ON p.id= o.product_id \n" +
-            "WHERE p.category_id IN(:categories) and o.status_id IN(:status_id)")
+            "WHERE p.category_id IN(:categories) and o.status_id IN(:status_id) " +
+            "AND o.order_id=:order_id")
+    List<Review> getReviewIn(int categories,int[] status_id,int order_id);
+
+    @Query("select o.id,o.status_id,p.title,p.price,o.quantity,p.pos_id,(p.price + (p.price*0.19) * o.quantity) as subtotal\n" +
+            "from OrdersDetail o \n" +
+            "JOIN products p ON p.id= o.product_id \n" +
+            "WHERE p.category_id IN(:categories) and o.status_id IN(:status_id) ")
     List<Review> getReviewIn(int categories,int[] status_id);
 
     @Query("select o.id,o.status_id,p.title,p.price,o.quantity,p.pos_id,(p.price * o.quantity) as subtotal\n" +
@@ -63,6 +70,13 @@ public interface OrdersDetailDAO {
             "JOIN products p ON p.id= o.product_id \n" +
             "WHERE o.parent_id=:parent_id")
     List<Review> getChild(int parent_id);
+
+    @Query("select o.id,o.status_id,p.title,p.price,o.quantity,p.pos_id,(p.price * o.quantity) as subtotal\n" +
+            "from OrdersDetail o \n" +
+            "JOIN products p ON p.id= o.product_id \n" +
+            "WHERE p.category_id NOT IN(:categories) and o.parent_id=0 and o.status_id IN(:status_id) " +
+            "AND o.order_id=:order_id")
+    List<Review> getReviewNotIn(int categories,int[] status_id,int order_id);
 
     @Query("select o.id,o.status_id,p.title,p.price,o.quantity,p.pos_id,(p.price * o.quantity) as subtotal\n" +
             "from OrdersDetail o \n" +

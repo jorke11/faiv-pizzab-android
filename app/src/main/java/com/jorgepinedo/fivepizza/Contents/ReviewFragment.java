@@ -33,6 +33,7 @@ import com.jorgepinedo.fivepizza.Adapters.ListMenuAdapterReview;
 import com.jorgepinedo.fivepizza.Adapters.ListMenuDrinkAdapter;
 import com.jorgepinedo.fivepizza.Database.App;
 import com.jorgepinedo.fivepizza.FinishActivity;
+import com.jorgepinedo.fivepizza.LockActivity;
 import com.jorgepinedo.fivepizza.MainActivity;
 import com.jorgepinedo.fivepizza.Models.Orders;
 import com.jorgepinedo.fivepizza.Models.OrdersDetail;
@@ -237,11 +238,14 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialog.dismiss();
                 orders.setStatus_id(2);
                 app_db.ordersDAO().update(orders);
                 app_db.ordersDetailDAO().updateFinishOrder(orders.getId());
                 cleanImage();
                 Utils.setItem(getActivity(),"status","finalizado");
+
+                startActivity(new Intent(getActivity(),MainActivity.class));
             }
         });
 
@@ -441,7 +445,7 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
 
         Products products;
 
-        List<OrdersDetail> masas_list = app_db.ordersDetailDAO().getOrdersByCategories(new int[]{1,7},new int[]{1,2});
+        List<OrdersDetail> masas_list = app_db.ordersDetailDAO().getOrdersByCategories(new int[]{1,7,8},new int[]{1,2});
 
         for (OrdersDetail row:masas_list){
             Map<String, String> params = new HashMap<String,String>();

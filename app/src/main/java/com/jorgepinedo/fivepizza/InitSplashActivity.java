@@ -96,16 +96,16 @@ public class InitSplashActivity extends AppCompatActivity {
         validateProduct(new Products("Queso parmesano",700,"queso_parmessano",10,6,19,2,14));
 
         //Bebidas
-       validateProduct(new Products("Agua",2000,"agua",10,7,6,1,1));
-       validateProduct(new Products("Agua con gas",2000,"agua_con_gas",10,7,5,1,1));
-       validateProduct(new Products("Coca Cola",2000,"coca_cola",10,7,4,1,1));
-       validateProduct(new Products("Coca Cola Zero",2000,"coca_cola_zero",10,7,3,1,1));
-       validateProduct(new Products("Coca Light",2000,"coca_light",10,7,2,1,1));
-       validateProduct(new Products("Sprite",2000,"sprite",10,7,8,1,1));
-       validateProduct(new Products("Quatro",2000,"quatro",10,7,7,1,1));
-       validateProduct(new Products("Kola Roman",2000,"kola_roman",10,7,9,1,1));
+        validateProduct(new Products("Agua",2000,"agua",10,7,6,1,1));
+        validateProduct(new Products("Agua con gas",2000,"agua_con_gas",10,7,5,1,1));
+        validateProduct(new Products("Coca Cola",2000,"coca_cola",10,7,4,1,1));
+        validateProduct(new Products("Coca Cola Zero",2000,"coca_cola_zero",10,7,3,1,1));
+        validateProduct(new Products("Coca Cola Light",2000,"coca_light",10,7,2,1,1));
+        validateProduct(new Products("Sprite",2000,"sprite",10,7,0,1,1));
+        validateProduct(new Products("Quatro",2000,"quatro",10,7,0,1,1));
+        validateProduct(new Products("Kola Roman",2000,"kola_roman",10,7,0,1,1));
 
-       validateProduct(new Products("Galleta chips de chocolate",1500,"galleta",10,8,4,1,1));
+        validateProduct(new Products("Galleta chips de chocolate",1500,"galleta",10,8,4,1,1));
     }
 
     public void validateProduct(Products products){

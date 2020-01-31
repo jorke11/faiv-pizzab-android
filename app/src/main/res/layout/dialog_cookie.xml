@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+                <TextView
+                    android:paddingTop="30dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="¿Tienes un ultimo antojo?"
+                    android:fontFamily="helvetica"
+                    android:textSize="30dp"
+                    android:textAlignment="center"/>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card_complete"
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    app:cardCornerRadius="30dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:elevation="0dp"
+                    app:cardMaxElevation="0dp"
+                    app:cardPreventCornerOverlap="false"
+                    app:cardElevation="0dp"
+                    android:layout_marginBottom="10dp"
+                    app:cardBackgroundColor="@android:color/transparent"
+                    >
+
+                        <android.support.constraint.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                                <android.support.v7.widget.CardView
+                                    android:id="@+id/cardView"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="70dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_marginEnd="8dp"
+                                    android:elevation="0dp"
+                                    android:translationZ="0dp"
+                                    app:cardBackgroundColor="@color/blue_menu"
+                                    app:cardCornerRadius="30dp"
+                                    app:cardMaxElevation="0dp"
+                                    app:cardPreventCornerOverlap="false"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="1.0"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintVertical_bias="1.0">
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal"
+                                            android:layout_marginStart="105dp"
+                                            android:weightSum="1">
+                                                <LinearLayout
+                                                    android:layout_width="0dp"
+                                                    android:layout_weight=".7"
+                                                    android:layout_height="wrap_content"
+                                                    android:orientation="vertical">
+                                                        <TextView
+                                                            android:id="@+id/title"
+                                                            android:layout_width="match_parent"
+                                                            android:layout_height="wrap_content"
+                                                            android:fontFamily="helvetica"
+                                                            android:text="Galleta Chips de Chocolate"
+                                                            android:textColor="@color/white"
+                                                            android:textSize="20dp"
+                                                            />
+
+                                                        <android.support.v7.widget.CardView
+                                                            android:layout_width="100dp"
+                                                            android:layout_height="wrap_content"
+                                                            app:cardCornerRadius="10dp"
+                                                            app:layout_constraintBottom_toBottomOf="parent"
+                                                            app:layout_constraintEnd_toEndOf="parent"
+                                                            app:layout_constraintHorizontal_bias="0.163"
+                                                            app:layout_constraintStart_toStartOf="parent"
+                                                            app:layout_constraintTop_toBottomOf="@+id/title"
+                                                            app:layout_constraintVertical_bias="0.540">
+
+                                                                <TextView
+                                                                    android:id="@+id/price"
+                                                                    android:layout_width="match_parent"
+                                                                    android:layout_height="wrap_content"
+                                                                    android:text="$10000"
+                                                                    android:textSize="20dp"
+                                                                    android:textAlignment="center"/>
+                                                        </android.support.v7.widget.CardView>
+
+                                                </LinearLayout>
+
+                                                <LinearLayout
+                                                    android:layout_width="0dp"
+                                                    android:layout_weight=".33"
+                                                    android:layout_height="match_parent">
+                                                        <Button
+                                                            android:id="@+id/btn_minus"
+                                                            android:layout_width="49dp"
+                                                            android:layout_height="64dp"
+                                                            android:background="@null"
+                                                            android:stateListAnimator="@null"
+                                                            android:text="-"
+                                                            android:textColor="@color/white"
+                                                            android:textSize="30dp"
+                                                            />
+
+                                                        <TextView
+                                                            android:id="@+id/tv_total_item"
+                                                            android:layout_width="25dp"
+                                                            android:layout_height="wrap_content"
+                                                            android:gravity="center"
+                                                            android:text="0"
+                                                            android:textColor="@color/white"
+                                                            android:textSize="25dp"
+                                                            />
+
+                                                        <Button
+                                                            android:id="@+id/btn_plus"
+                                                            android:layout_width="49dp"
+                                                            android:layout_height="64dp"
+                                                            android:background="@null"
+                                                            android:stateListAnimator="@null"
+                                                            android:text="+"
+                                                            android:textColor="@color/white"
+                                                            android:textSize="30dp"
+                                                            />
+                                                </LinearLayout>
+
+
+
+                                        </LinearLayout>
+
+                                </android.support.v7.widget.CardView>
+
+
+                                <ImageView
+                                    android:id="@+id/image_cookie"
+                                    android:layout_width="67dp"
+                                    android:layout_height="98dp"
+                                    android:layout_marginStart="0dp"
+                                    android:src="@drawable/galleta"
+                                    android:translationZ="10dp"
+                                    android:adjustViewBounds="true"
+                                    app:layout_constraintBottom_toBottomOf="@+id/cardView"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.055"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintVertical_bias="0.0" />
+
+
+
+                        </android.support.constraint.ConstraintLayout>
+                </android.support.v7.widget.CardView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="20dp"
+                    android:weightSum="1"
+                    android:paddingBottom="20dp">
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_weight=".5"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/btn_cancel"
+                            android:background="@color/colorAccent"
+                            android:textColor="@color/white"
+                            android:fontFamily="helvetica"
+                            android:textSize="25dp"
+                            android:text="No, gracias"
+                            android:textAllCaps="false"/>
+                        <Button
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="0dp"
+                            android:layout_weight=".5"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/btn_accept"
+                            android:background="@color/blue_menu"
+                            android:textColor="@color/white"
+                            android:textAllCaps="false"
+                            android:fontFamily="helvetica"
+                            android:textSize="25dp"
+                            android:text="Entendido"/>
+                </LinearLayout>
+
+        </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

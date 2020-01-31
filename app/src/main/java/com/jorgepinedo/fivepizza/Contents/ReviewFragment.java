@@ -137,7 +137,8 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
             @Override
             public void onClick(View v) {
                 if(validateTotal()){
-                    createOrder();
+                    showCookie();
+                    //createOrder();
                 }
             }
         });
@@ -213,6 +214,67 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+            }
+        });
+    }
+
+    public void showCookie(){
+
+        final AlertDialog dialog;
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
+        final View mView=getLayoutInflater().inflate(R.layout.dialog_cookie,null);
+
+        Button accept = mView.findViewById(R.id.btn_accept);
+        Button btn_cancel = mView.findViewById(R.id.btn_cancel);
+
+        Button btn_plus = mView.findViewById(R.id.btn_plus);
+        Button btn_minus = mView.findViewById(R.id.btn_minus);
+
+        final TextView tv_total_item = mView.findViewById(R.id.tv_total_item);
+
+        btn_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int total = 1;
+                total+=Integer.parseInt((String) tv_total_item.getText());
+                tv_total_item.setText(total+"");
+            }
+        });
+
+
+        mBuilder.setView(mView);
+
+        int width = (int)(getResources().getDisplayMetrics().widthPixels*0.90);
+        int height = (int)(getResources().getDisplayMetrics().heightPixels*0.90);
+
+        dialog = mBuilder.create();
+        //dialog.getWindow().setLayout(width, height);
+        dialog.setTitle("");
+        dialog.show();
+
+
+        accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                int quantity = Integer.parseInt((String) tv_total_item.getText());
+
+                if(quantity > 0){
+                    List<Products> cookie=app_db.productsDAO().getAllProductsCategory(new int[]{8});
+                    Orders orders = app_db.ordersDAO().getOrderCurrent();
+                    app_db.ordersDetailDAO().insertAll(new OrdersDetail(orders.getId(),cookie.get(0).getId(),0));
+                    OrdersDetail row = app_db.ordersDetailDAO().getOrdersByProductId(cookie.get(0).getId());
+                    app_db.ordersDetailDAO().updateQuantity(row.getId(), quantity);
+                }
+
+                createOrder();
+            }
+        });
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                createOrder();
             }
         });
     }
@@ -344,7 +406,7 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
 
         Products products;
 
-        List<OrdersDetail> masas_list = app_db.ordersDetailDAO().getOrdersByCategories(new int[]{1,7},new int[]{1,2});
+        List<OrdersDetail> masas_list = app_db.ordersDetailDAO().getOrdersByCategories(new int[]{1,7,8},new int[]{1,2});
 
         for (OrdersDetail row:masas_list){
             Map<String, String> params = new HashMap<String,String>();

@@ -20,7 +20,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1e2ed46d-cc40-4186-82b3-bc78bcda70c3" name="Default Changelist" comment="add new features">
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_cookie.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_cookie.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/jorgepinedo/fivepizza/Contents/ReviewFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/jorgepinedo/fivepizza/Contents/ReviewFragment.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -57,28 +64,34 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jorgepinedo/fivepizza/Contents/ReviewFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-204">
-              <caret line="239" column="5" selection-start-line="239" selection-start-column="5" selection-end-line="239" selection-end-column="5" />
+            <state relative-caret-position="314">
+              <caret line="245" column="11" lean-forward="true" selection-start-line="245" selection-start-column="11" selection-end-line="245" selection-end-column="11" />
               <folding>
                 <element signature="e#5070#5219#0" expanded="true" />
                 <element signature="e#5218#5219#0" expanded="true" />
                 <element signature="e#5261#5663#0" expanded="true" />
                 <element signature="e#5662#5663#0" expanded="true" />
-                <element signature="e#7021#7168#0" expanded="true" />
-                <element signature="e#7167#7168#0" expanded="true" />
-                <element signature="e#7209#7359#0" expanded="true" />
-                <element signature="e#7358#7359#0" expanded="true" />
-                <element signature="e#8164#8311#0" expanded="true" />
-                <element signature="e#8310#8311#0" expanded="true" />
+                <element signature="e#7021#7201#0" expanded="true" />
+                <element signature="e#7200#7201#0" expanded="true" />
+                <element signature="e#7242#7392#0" expanded="true" />
+                <element signature="e#7391#7392#0" expanded="true" />
+                <element signature="e#8275#8663#0" expanded="true" />
+                <element signature="e#8662#8663#0" expanded="true" />
+                <element signature="e#9516#9790#0" expanded="true" />
+                <element signature="e#9789#9790#0" expanded="true" />
+                <element signature="e#10171#10971#0" expanded="true" />
+                <element signature="e#10970#10971#0" expanded="true" />
+                <element signature="e#11012#11193#0" expanded="true" />
+                <element signature="e#11192#11193#0" expanded="true" />
                 <element signature="e#10601#10617#0" expanded="true" />
-                <element signature="e#11081#11096#0" expanded="true" />
-                <element signature="e#12859#12874#0" expanded="true" />
-                <element signature="e#13599#13614#0" expanded="true" />
-                <element signature="e#14383#14398#0" expanded="true" />
-                <element signature="e#16459#16474#0" expanded="true" />
+                <element signature="e#13963#13978#0" expanded="true" />
+                <element signature="e#15741#15756#0" expanded="true" />
+                <element signature="e#16481#16496#0" expanded="true" />
+                <element signature="e#17265#17280#0" expanded="true" />
+                <element signature="e#19341#19356#0" expanded="true" />
                 <element signature="e#16882#16883#0" expanded="true" />
                 <element signature="e#16939#16940#0" expanded="true" />
               </folding>
@@ -86,23 +99,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_cookie.xml">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jorgepinedo/fivepizza/PaymentActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="548">
-              <caret line="201" column="50" selection-start-line="201" selection-start-column="50" selection-end-line="201" selection-end-column="50" />
+            <state relative-caret-position="255">
+              <caret line="244" column="4" lean-forward="true" selection-start-line="244" selection-start-column="4" selection-end-line="250" selection-end-column="5" />
             </state>
           </provider>
-          <provider editor-type-id="android-designer2" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jorgepinedo/fivepizza/Contents/DrinkFragment.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_finish_order.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="137" column="16" selection-start-line="137" selection-start-column="16" selection-end-line="137" selection-end-column="92" />
+            <state relative-caret-position="252">
+              <caret line="25" column="49" selection-start-line="25" selection-start-column="49" selection-end-line="25" selection-end-column="49" />
             </state>
           </provider>
+          <provider editor-type-id="android-designer2" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -224,9 +237,9 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/dialog_finish_order.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jorgepinedo/fivepizza/Contents/DrinkFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_topping.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/jorgepinedo/fivepizza/Contents/ReviewFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jorgepinedo/fivepizza/InitSplashActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/dialog_cookie.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jorgepinedo/fivepizza/Contents/ReviewFragment.java" />
       </list>
     </option>
   </component>
@@ -475,15 +488,15 @@
       <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.50159574" side_tool="true" weight="0.24021739" />
       <window_info anchor="bottom" id="Version Control" order="6" />
       <window_info anchor="bottom" id="Build" order="7" sideWeight="0.49840426" weight="0.24782608" />
-      <window_info anchor="bottom" id="Android Profiler" order="8" weight="0.32893288" />
+      <window_info anchor="bottom" id="Android Profiler" order="8" weight="0.32826087" />
       <window_info anchor="bottom" id="Find" order="9" weight="0.32893288" />
       <window_info active="true" anchor="bottom" id="Messages" order="10" visible="true" weight="0.32934782" />
       <window_info anchor="right" id="Capture Analysis" order="0" />
       <window_info anchor="right" id="Gradle" order="1" weight="0.3292553" />
       <window_info anchor="right" id="Theme Preview" order="2" />
-      <window_info anchor="right" id="Preview" order="3" sideWeight="0.4202658" visible="true" weight="0.28829786" />
+      <window_info anchor="right" id="Preview" order="3" sideWeight="0.4202658" weight="0.28829786" />
       <window_info anchor="right" id="Palette&#9;" order="4" />
-      <window_info anchor="right" id="Device File Explorer" order="5" sideWeight="0.5797342" side_tool="true" weight="0.28829786" />
+      <window_info anchor="right" id="Device File Explorer" order="5" sideWeight="0.5797342" side_tool="true" weight="0.23138298" />
       <window_info anchor="right" id="Flutter Inspector" order="6" />
       <window_info anchor="right" id="Flutter Outline" order="7" />
       <window_info anchor="right" id="Flutter Performance" order="8" weight="0.32978722" />
@@ -904,25 +917,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_finish_order.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="23" column="16" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jorgepinedo/fivepizza/Contents/MasaFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1693">
           <caret line="185" column="74" lean-forward="true" selection-start-line="185" selection-start-column="74" selection-end-line="185" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jorgepinedo/fivepizza/Contents/DrinkFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="137" column="16" selection-start-line="137" selection-start-column="16" selection-end-line="137" selection-end-column="92" />
         </state>
       </provider>
     </entry>
@@ -941,50 +939,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jorgepinedo/fivepizza/PaymentActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
-          <caret line="178" column="5" selection-start-line="178" selection-start-column="5" selection-end-line="178" selection-end-column="5" />
-          <folding>
-            <element signature="e#3301#5423#0" expanded="true" />
-            <element signature="e#3967#4505#0" expanded="true" />
-            <element signature="e#4504#4505#0" expanded="true" />
-            <element signature="e#4551#5397#0" expanded="true" />
-            <element signature="e#5396#5397#0" expanded="true" />
-            <element signature="e#5422#5423#0" expanded="true" />
-            <element signature="e#6140#6326#0" expanded="true" />
-            <element signature="e#6325#6326#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jorgepinedo/fivepizza/Contents/ReviewFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-204">
-          <caret line="239" column="5" selection-start-line="239" selection-start-column="5" selection-end-line="239" selection-end-column="5" />
-          <folding>
-            <element signature="e#5070#5219#0" expanded="true" />
-            <element signature="e#5218#5219#0" expanded="true" />
-            <element signature="e#5261#5663#0" expanded="true" />
-            <element signature="e#5662#5663#0" expanded="true" />
-            <element signature="e#7021#7168#0" expanded="true" />
-            <element signature="e#7167#7168#0" expanded="true" />
-            <element signature="e#7209#7359#0" expanded="true" />
-            <element signature="e#7358#7359#0" expanded="true" />
-            <element signature="e#8164#8311#0" expanded="true" />
-            <element signature="e#8310#8311#0" expanded="true" />
-            <element signature="e#10601#10617#0" expanded="true" />
-            <element signature="e#11081#11096#0" expanded="true" />
-            <element signature="e#12859#12874#0" expanded="true" />
-            <element signature="e#13599#13614#0" expanded="true" />
-            <element signature="e#14383#14398#0" expanded="true" />
-            <element signature="e#16459#16474#0" expanded="true" />
-            <element signature="e#16882#16883#0" expanded="true" />
-            <element signature="e#16939#16940#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jorgepinedo/fivepizza/InitSplashActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
@@ -999,6 +953,61 @@
         </state>
       </provider>
       <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jorgepinedo/fivepizza/Contents/DrinkFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="498">
+          <caret line="137" column="16" selection-start-line="137" selection-start-column="16" selection-end-line="137" selection-end-column="92" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_finish_order.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="25" column="49" selection-start-line="25" selection-start-column="49" selection-end-line="25" selection-end-column="49" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jorgepinedo/fivepizza/PaymentActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="244" column="4" lean-forward="true" selection-start-line="244" selection-start-column="4" selection-end-line="250" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jorgepinedo/fivepizza/Contents/ReviewFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="314">
+          <caret line="245" column="11" lean-forward="true" selection-start-line="245" selection-start-column="11" selection-end-line="245" selection-end-column="11" />
+          <folding>
+            <element signature="e#5070#5219#0" expanded="true" />
+            <element signature="e#5218#5219#0" expanded="true" />
+            <element signature="e#5261#5663#0" expanded="true" />
+            <element signature="e#5662#5663#0" expanded="true" />
+            <element signature="e#7021#7201#0" expanded="true" />
+            <element signature="e#7200#7201#0" expanded="true" />
+            <element signature="e#7242#7392#0" expanded="true" />
+            <element signature="e#7391#7392#0" expanded="true" />
+            <element signature="e#8275#8663#0" expanded="true" />
+            <element signature="e#8662#8663#0" expanded="true" />
+            <element signature="e#9516#9790#0" expanded="true" />
+            <element signature="e#9789#9790#0" expanded="true" />
+            <element signature="e#10171#10971#0" expanded="true" />
+            <element signature="e#10970#10971#0" expanded="true" />
+            <element signature="e#11012#11193#0" expanded="true" />
+            <element signature="e#11192#11193#0" expanded="true" />
+            <element signature="e#10601#10617#0" expanded="true" />
+            <element signature="e#13963#13978#0" expanded="true" />
+            <element signature="e#15741#15756#0" expanded="true" />
+            <element signature="e#16481#16496#0" expanded="true" />
+            <element signature="e#17265#17280#0" expanded="true" />
+            <element signature="e#19341#19356#0" expanded="true" />
+            <element signature="e#16882#16883#0" expanded="true" />
+            <element signature="e#16939#16940#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
     </entry>
   </component>
   <component name="masterDetails">

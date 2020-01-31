@@ -103,6 +103,8 @@ public class InitSplashActivity extends AppCompatActivity {
        validateProduct(new Products("Sprite",2000,"sprite",10,7,0,1,1));
        validateProduct(new Products("Quatro",2000,"quatro",10,7,0,1,1));
        validateProduct(new Products("Kola Roman",2000,"kola_roman",10,7,0,1,1));
+
+       validateProduct(new Products("Galleta chips chocolate",1500,"galleta",10,7,0,1,1));
     }
 
     public void validateProduct(Products products){

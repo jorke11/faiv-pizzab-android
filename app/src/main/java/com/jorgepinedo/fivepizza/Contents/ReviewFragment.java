@@ -241,6 +241,18 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
             }
         });
 
+        btn_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int total=0;
+                total = Integer.parseInt((String) tv_total_item.getText());
+                total--;
+                if(total >= 0){
+                    tv_total_item.setText(total+"");
+                }
+            }
+        });
+
 
         mBuilder.setView(mView);
 

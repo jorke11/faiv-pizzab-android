@@ -33,6 +33,7 @@ import com.jorgepinedo.fivepizza.Adapters.ListMenuAdapterReview;
 import com.jorgepinedo.fivepizza.Adapters.ListMenuDrinkAdapter;
 import com.jorgepinedo.fivepizza.Database.App;
 import com.jorgepinedo.fivepizza.FinishActivity;
+import com.jorgepinedo.fivepizza.LockActivity;
 import com.jorgepinedo.fivepizza.MainActivity;
 import com.jorgepinedo.fivepizza.Models.Orders;
 import com.jorgepinedo.fivepizza.Models.OrdersDetail;
@@ -59,7 +60,6 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
     ListMenuAdapterReview listMenuAdapter,listedMenuAdapter,adapterConfirm;
     List<Review> listReviewMain,listReviewTotal,listReviewDrink,listedReviewMain,listedReviewTotal,listedReviewDrink;
 
-
     Button payment,other_pizza;
     StringRequest stringRequest;
     private String IP="";
@@ -79,7 +79,21 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
         app_db = Utils.newInstanceDB(getActivity());
 
 
+<<<<<<< HEAD
         validateTotal();
+=======
+        int total = app_db.ordersDetailDAO().getTotal(new int[]{1});
+
+        if(total==0){
+            Toast.makeText(getActivity(),"No tienes productos Seleccionados",Toast.LENGTH_SHORT).show();
+            final Fragment fragment = new MasaFragment();
+            ((MainActivity)getActivity()).chageFragment(fragment);
+            ((MainActivity)getActivity()).enableBtnsTwo();
+        }
+
+        Log.d("JORKE",total+" a");
+
+>>>>>>> Kiosko
 
         View view = inflater.inflate(R.layout.fragment_review, container, false);
 
@@ -110,7 +124,10 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
 
 
         recycler_review = view.findViewById(R.id.recycler_review);
+<<<<<<< HEAD
         recycler_reviewed = view.findViewById(R.id.recycler_reviewed);
+=======
+>>>>>>> Kiosko
 
         payment = view.findViewById(R.id.payment);
         other_pizza = view.findViewById(R.id.other_pizza);
@@ -125,12 +142,12 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
         recycler_review.setAdapter(listMenuAdapter);
 
 
-        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getActivity());
+       /* LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getActivity());
         linearLayoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
         recycler_reviewed.setLayoutManager(linearLayoutManager2);
 
         listedMenuAdapter = new ListMenuAdapterReview(listedReviewTotal,R.layout.card_product_review,getActivity(), (ListMenuAdapterReview.EventCustomer) this,app_db);
-        recycler_reviewed.setAdapter(listedMenuAdapter);
+        recycler_reviewed.setAdapter(listedMenuAdapter);*/
 
 
         payment.setOnClickListener(new View.OnClickListener() {
@@ -174,9 +191,12 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
         }
     }
 
+<<<<<<< HEAD
 
     public void confirmOrder(){
 
+=======
+>>>>>>> Kiosko
         final AlertDialog dialog;
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
         View mView=getLayoutInflater().inflate(R.layout.dialog_confirm_order,null);
@@ -207,7 +227,8 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createOrder();
+                dialog.dismiss();
+                showCookie();
             }
         });
         btn_cancel.setOnClickListener(new View.OnClickListener() {
@@ -217,6 +238,54 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
             }
         });
     }
+
+    public void generarTicket(int order_id){
+
+
+        final Orders orders = app_db.ordersDAO().getOrderCurrent();
+
+        final AlertDialog dialog;
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
+        View mView=getLayoutInflater().inflate(R.layout.dialog_finish_order,null);
+
+        Button accept = mView.findViewById(R.id.btn_accept);
+        TextView number_order = mView.findViewById(R.id.number_order);
+        number_order.setText(order_id+"");
+
+        mBuilder.setView(mView);
+
+        int width = (int)(getResources().getDisplayMetrics().widthPixels*0.90);
+        int height = (int)(getResources().getDisplayMetrics().heightPixels*0.90);
+
+        dialog = mBuilder.create();
+        //dialog.getWindow().setLayout(width, height);
+        dialog.setTitle("");
+        dialog.show();
+
+
+        accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                orders.setStatus_id(2);
+                app_db.ordersDAO().update(orders);
+                app_db.ordersDetailDAO().updateFinishOrder(orders.getId());
+                cleanImage();
+                Utils.setItem(getActivity(),"status","finalizado");
+
+                startActivity(new Intent(getActivity(),MainActivity.class));
+            }
+        });
+
+    }
+    private void cleanImage() {
+        Utils.setItem(getActivity(),"masa","");
+        Utils.setItem(getActivity(),"queso","");
+        Utils.setItem(getActivity(),"salsa","");
+        Utils.setItem(getActivity(),"topping_1","");
+        Utils.setItem(getActivity(),"topping_2","");
+    }
+
 
     public void showCookie(){
 
@@ -291,6 +360,82 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
         });
     }
 
+<<<<<<< HEAD
+    public void showCookie(){
+
+        final AlertDialog dialog;
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
+        final View mView=getLayoutInflater().inflate(R.layout.dialog_cookie,null);
+
+        Button accept = mView.findViewById(R.id.btn_accept);
+        Button btn_cancel = mView.findViewById(R.id.btn_cancel);
+
+        Button btn_plus = mView.findViewById(R.id.btn_plus);
+        Button btn_minus = mView.findViewById(R.id.btn_minus);
+
+        final TextView tv_total_item = mView.findViewById(R.id.tv_total_item);
+
+        btn_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int total = 1;
+                total+=Integer.parseInt((String) tv_total_item.getText());
+                tv_total_item.setText(total+"");
+            }
+        });
+
+        btn_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int total=0;
+                total = Integer.parseInt((String) tv_total_item.getText());
+                total--;
+                if(total >= 0){
+                    tv_total_item.setText(total+"");
+                }
+            }
+        });
+
+
+        mBuilder.setView(mView);
+
+        int width = (int)(getResources().getDisplayMetrics().widthPixels*0.90);
+        int height = (int)(getResources().getDisplayMetrics().heightPixels*0.90);
+
+        dialog = mBuilder.create();
+        //dialog.getWindow().setLayout(width, height);
+        dialog.setTitle("");
+        dialog.show();
+
+
+        accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                int quantity = Integer.parseInt((String) tv_total_item.getText());
+
+                if(quantity > 0){
+                    List<Products> cookie=app_db.productsDAO().getAllProductsCategory(new int[]{8});
+                    Orders orders = app_db.ordersDAO().getOrderCurrent();
+                    app_db.ordersDetailDAO().insertAll(new OrdersDetail(orders.getId(),cookie.get(0).getId(),0));
+                    OrdersDetail row = app_db.ordersDetailDAO().getOrdersByProductId(cookie.get(0).getId());
+                    app_db.ordersDetailDAO().updateQuantity(row.getId(), quantity);
+                }
+
+                createOrder();
+            }
+        });
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                createOrder();
+            }
+        });
+    }
+=======
+>>>>>>> Kiosko
+
     public void createOrder(){
         Log.d("JORKE","createOrder");
         other_pizza.setEnabled(false);
@@ -324,7 +469,8 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
                         payment.setVisibility(View.VISIBLE);
                         spinner.setVisibility(View.GONE);
                         app_db.ordersDetailDAO().printedOrder(orders.getId());
-                        startActivity(new Intent(getActivity(), FinishActivity.class));
+                        generarTicket(Integer.parseInt(obj.getString("OrderID")));
+                        //startActivity(new Intent(getActivity(), FinishActivity.class));
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -370,7 +516,11 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
 
             stringRequest.setRetryPolicy(mRetryPolicy);
 
+<<<<<<< HEAD
             requestQueue = Volley.newRequestQueue(getContext());
+=======
+            requestQueue= Volley.newRequestQueue(getContext());
+>>>>>>> Kiosko
             requestQueue.add(stringRequest);
         }
     }
@@ -381,9 +531,11 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
         Orders orders = app_db.ordersDAO().getOrderCurrent();
         Log.d("JORKE",orders.toString());
         HashMap<String, String> params = new HashMap<>();
-        params.put("DineInTableID",Utils.getItem(getActivity(),"TABLE"));
+        //params.put("DineInTableID",Utils.getItem(getActivity(),"TABLE"));
         params.put("StationID","1");
         params.put("OrderStatus","1");
+        params.put("OrderType","2");
+        //params.put("OrderType",orders.getType_id()+"");
         params.put("type_id",orders.getType_id()+"");
         params.put("order_pos_id",orders.getOrder_post_id()+"");
         params.put("GuestCheckPrinted","false");
@@ -461,29 +613,28 @@ public class ReviewFragment extends Fragment implements ListMenuAdapterReview.Ev
     }
 
     public String getListDetail(){
-            ArrayList<Map<String, String>> myList=new ArrayList<>();
+        ArrayList<Map<String, String>> myList=new ArrayList<>();
 
-            int pos_id=0;
-            Products products;
+        int pos_id=0;
+        Products products;
 
-            for(Review row:listReviewTotal){
-                products = app_db.productsDAO().getProductByPosId(row.getPos_id());
-                Map<String, String> params = new HashMap<String,String>();
-                //params.put("priority",products.getPriority()+"");
-                params.put("Quantity",row.getQuantity()+"");
-                pos_id = (row.getPos_id() == 0)?327:row.getPos_id();
-                params.put("MenuItemID",pos_id+"");
+        for(Review row:listReviewTotal){
+            products = app_db.productsDAO().getProductByPosId(row.getPos_id());
+            Map<String, String> params = new HashMap<String,String>();
+            //params.put("priority",products.getPriority()+"");
+            params.put("Quantity",row.getQuantity()+"");
+            pos_id = (row.getPos_id() == 0)?327:row.getPos_id();
+            params.put("MenuItemID",pos_id+"");
 
-                myList.add(params);
-            }
-
-            Gson gson = new Gson();
-            return gson.toJson(myList);
+            myList.add(params);
         }
+
+        Gson gson = new Gson();
+        return gson.toJson(myList);
+    }
 
     @Override
     public void onClickUpdateTotal() {
         ((MainActivity)getActivity()).loadTotal();
     }
 }
-

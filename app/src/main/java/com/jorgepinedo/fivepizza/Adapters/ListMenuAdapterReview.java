@@ -74,7 +74,6 @@ public class ListMenuAdapterReview extends RecyclerView.Adapter<ListMenuAdapterR
                 app_db.ordersDetailDAO().updateQuantity(row.getId(),quantity);
                 app_db.ordersDetailDAO().updateChild(row.getId(),quantity);
                 notifyDataSetChanged();
-
                 eventCustomer.onClickUpdateTotal();
             }
         });

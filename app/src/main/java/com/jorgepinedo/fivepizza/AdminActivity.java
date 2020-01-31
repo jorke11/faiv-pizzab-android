@@ -45,14 +45,21 @@ public class AdminActivity extends AppCompatActivity{
     App app_db;
     StringRequest stringRequest;
     RequestQueue requestQueue;
+<<<<<<< HEAD
     String IP = Utils.IP;
+=======
+    String IP;
+>>>>>>> Kiosko
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
         IP=Utils.getItem(this,"IP_SERVER");
+<<<<<<< HEAD
 
+=======
+>>>>>>> Kiosko
         app_db = Room.databaseBuilder(this,App.class,"spad-five")
                 .allowMainThreadQueries()
                 .build();

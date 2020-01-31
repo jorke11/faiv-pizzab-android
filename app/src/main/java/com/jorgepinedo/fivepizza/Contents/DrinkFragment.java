@@ -65,11 +65,17 @@ public class DrinkFragment extends Fragment implements ListMenuDrinkAdapter.even
         listMenuAdapter = new ListMenuDrinkAdapter(list,R.layout.card_product_drink,getActivity(), (ListMenuDrinkAdapter.eventCustom) this,app_db);
         recycler_products.setAdapter(listMenuAdapter);
 
+        List<Ingredients> ingredients= app_db.ordersDetailDAO().getcategoryExists(new int[]{1,2,3});
 
+<<<<<<< HEAD
         List<Ingredients> ingredients= app_db.ordersDetailDAO().getcategoryExists(new int[]{1,2,3});
 
         int id=0;
 
+=======
+        int id=0;
+
+>>>>>>> Kiosko
         for (Ingredients row:ingredients){
             if(row.getCategory_id() == 1){
                 id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/" + row.getUrl(), null, null);
@@ -94,6 +100,7 @@ public class DrinkFragment extends Fragment implements ListMenuDrinkAdapter.even
             }
 
             if(toppings.size() == 2){
+<<<<<<< HEAD
 
                 id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/"+toppings.get(0).getUrl(), null, null);
                 image_topping.setImageResource(id);
@@ -114,6 +121,26 @@ public class DrinkFragment extends Fragment implements ListMenuDrinkAdapter.even
         }
 
 
+=======
+
+                id = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/"+toppings.get(0).getUrl(), null, null);
+                image_topping.setImageResource(id);
+
+                int id2 = getActivity().getResources().getIdentifier("com.jorgepinedo.fivepizza:drawable/"+toppings.get(1).getUrl(), null, null);
+                image_topping2.setImageResource(id2);
+
+                if(toppings.get(0).getPriority() > toppings.get(1).getPriority()){
+                    image_topping.setImageResource(id2);
+                    image_topping2.setImageResource(id);
+                }
+            }
+
+        }else{
+
+            image_topping.setImageDrawable(null);
+            image_topping2.setImageDrawable(null);
+        }
+>>>>>>> Kiosko
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
